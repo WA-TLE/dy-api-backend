@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="2f458926-69a8-481b-8e7c-cc9be271d444" name="Changes" comment="dy-api 项目多模块聚合&#10;&#10;将之前所有项目使用 maven 聚合到一个父项目中, 统一管理">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/doc/db.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/sql/ddl.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/MyApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/annotation/AuthCheck.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/aop/AuthInterceptor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/aop/LogInterceptor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/common/BaseResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/common/DeleteRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/common/ErrorCode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/common/IdRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/common/PageRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/common/ResultUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/config/CorsConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/config/Knife4jConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/config/MyBatisPlusConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/constant/CommonConstant.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/constant/UserConstant.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/controller/AnalysisController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/controller/InterfaceInfoController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/controller/PostController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/controller/UserController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/controller/UserInterfaceInfoController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/exception/BusinessException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/exception/GlobalExceptionHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/mapper/InterfaceInfoMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/mapper/PostMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/mapper/UserInterfaceInfoMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/mapper/UserMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/model/dto/interfaceinfo/InterfaceInfoAddRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/model/dto/interfaceinfo/InterfaceInfoInvokeRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/model/dto/interfaceinfo/InterfaceInfoQueryRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/model/dto/interfaceinfo/InterfaceInfoUpdateRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/model/dto/post/PostAddRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/model/dto/post/PostDoThumbRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/model/dto/post/PostQueryRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/model/dto/post/PostUpdateRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/model/dto/user/UserAddRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/model/dto/user/UserLoginRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/model/dto/user/UserQueryRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/model/dto/user/UserRegisterRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/model/dto/user/UserUpdateRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/model/dto/user_interface/UserInterfaceInfoAddRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/model/dto/user_interface/UserInterfaceInfoQueryRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/model/dto/user_interface/UserInterfaceInfoUpdateRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/model/entity/InterfaceInfo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/model/entity/Post.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/model/entity/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/model/entity/UserInterfaceInfo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/model/enums/InterfaceInfoStatusEnum.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/model/enums/PostGenderEnum.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/model/enums/PostReviewStatusEnum.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/model/vo/InterfaceInfoVO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/model/vo/PostVO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/model/vo/UserVO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/provider/DemoService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/provider/DemoServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/provider/TestService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/provider/TestServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/service/InterfaceInfoService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/service/PostService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/service/UserInterfaceInfoService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/service/UserService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/service/impl/InterfaceInfoServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/service/impl/PostServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/service/impl/UserInterfaceInfoServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/service/impl/UserServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/service/impl/inner/InnerInterfaceInfoServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/service/impl/inner/InnerUserInterfaceInfoServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/service/impl/inner/InnerUserServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/resources/application-prod.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/resources/application.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/resources/banner.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/resources/mapper/InterfaceInfoMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/resources/mapper/PostMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/resources/mapper/UserInterfaceInfoMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/resources/mapper/UserMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-client-sdk/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-client-sdk/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-client-sdk/src/main/java/com/dy/DyApiClientConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-client-sdk/src/main/java/com/dy/client/DyApiClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-client-sdk/src/main/java/com/dy/model/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-client-sdk/src/main/java/com/dy/utils/SignUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-client-sdk/src/main/resources/META-INF/spring.factories" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-client-sdk/src/main/resources/application.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-common/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-common/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-common/src/main/java/com/dy/common/model/entity/InterfaceInfo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-common/src/main/java/com/dy/common/model/entity/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-common/src/main/java/com/dy/common/model/entity/UserInterfaceInfo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-common/src/main/java/com/dy/common/service/InnerInterfaceInfoService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-common/src/main/java/com/dy/common/service/InnerUserInterfaceInfoService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-common/src/main/java/com/dy/common/service/InnerUserService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-gateway/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-gateway/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-gateway/src/main/java/com/dy/DyapiGatewayApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-gateway/src/main/java/com/dy/filter/ApiGlobalFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-gateway/src/main/java/com/dy/project/provider/DemoService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-gateway/src/main/java/com/dy/project/provider/TestService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-gateway/src/main/resources/application.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-interface/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-interface/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-interface/src/main/java/com/dy/DyapiInterfaceApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-interface/src/main/java/com/dy/controller/NameController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-interface/src/main/resources/application.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="$PROJECT_DIR$/../../../important/Maven/apache-maven-3.6.1" />
+        <option name="useMavenConfig" value="true" />
+        <option name="userSettingsFile" value="D:\important\Maven\apache-maven-3.6.1\conf\settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="2cjH9zMvRbWqfVKiEHwPbRn3QFE" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "D:/WorkSpace/API接口/dy-api-backend/dy-api-client-sdk",
+    "settings.editor.selected.configurable": "MavenSettings"
+  }
+}]]></component>
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="SpringBootApplicationConfigurationType" />
+      </set>
+    </option>
+  </component>
+  <component name="RunManager" selected="Spring Boot.DyapiGatewayApplication">
+    <configuration name="DyapiGatewayApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="dy-api-gateway" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.dy.DyapiGatewayApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DyapiInterfaceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="dy-api-interface" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.dy.DyapiInterfaceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MyApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="dy-api-admin" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.dy.project.MyApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="lua.app" factoryName="Lua Application">
+      <option name="program" value="lua.exe" />
+      <option name="file" value="" />
+      <option name="workingDir" value="$PROJECT_DIR$/src/main/java" />
+      <option name="debuggerType" value="1" />
+      <option name="params" value="" />
+      <option name="charset" value="UTF-8" />
+      <option name="showConsole" value="true" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="2f458926-69a8-481b-8e7c-cc9be271d444" name="Changes" comment="" />
+      <created>1708617921829</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1708617921829</updated>
+      <workItem from="1708617923991" duration="382000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="dy-api 项目多模块聚合&#10;&#10;将之前所有项目使用 maven 聚合到一个父项目中, 统一管理" />
+    <option name="LAST_COMMIT_MESSAGE" value="dy-api 项目多模块聚合&#10;&#10;将之前所有项目使用 maven 聚合到一个父项目中, 统一管理" />
+  </component>
+</project>
