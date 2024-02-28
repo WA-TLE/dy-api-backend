@@ -1,8 +1,8 @@
 package com.dy.project.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.dy.common.model.entity.InterfaceInfo;
-import com.dy.project.common.ErrorCode;
+import com.dy.dycommon.common.ErrorCode;
+import com.dy.dycommon.model.entity.InterfaceInfo;
 import com.dy.project.exception.BusinessException;
 import com.dy.project.mapper.InterfaceInfoMapper;
 import com.dy.project.service.InterfaceInfoService;

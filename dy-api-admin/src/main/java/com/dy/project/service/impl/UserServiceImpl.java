@@ -4,8 +4,8 @@ import cn.hutool.core.util.RandomUtil;
 import cn.hutool.crypto.digest.DigestUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.dy.common.model.entity.User;
-import com.dy.project.common.ErrorCode;
+import com.dy.dycommon.common.ErrorCode;
+import com.dy.dycommon.model.entity.User;
 import com.dy.project.exception.BusinessException;
 import com.dy.project.mapper.UserMapper;
 
@@ -18,8 +18,8 @@ import org.springframework.util.DigestUtils;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import static com.dy.project.constant.UserConstant.ADMIN_ROLE;
-import static com.dy.project.constant.UserConstant.USER_LOGIN_STATE;
+import static com.dy.dycommon.constant.UserConstant.ADMIN_ROLE;
+import static com.dy.dycommon.constant.UserConstant.USER_LOGIN_STATE;
 
 
 /**

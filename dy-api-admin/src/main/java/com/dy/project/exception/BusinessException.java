@@ -1,6 +1,7 @@
 package com.dy.project.exception;
 
-import com.dy.project.common.ErrorCode;
+
+import com.dy.dycommon.common.ErrorCode;
 
 /**
  * 自定义异常类

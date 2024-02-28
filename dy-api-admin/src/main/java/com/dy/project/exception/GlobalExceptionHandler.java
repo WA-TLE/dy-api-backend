@@ -1,8 +1,9 @@
 package com.dy.project.exception;
 
-import com.dy.project.common.BaseResponse;
-import com.dy.project.common.ErrorCode;
-import com.dy.project.common.ResultUtils;
+
+import com.dy.dycommon.common.BaseResponse;
+import com.dy.dycommon.common.ErrorCode;
+import com.dy.dycommon.common.ResultUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;

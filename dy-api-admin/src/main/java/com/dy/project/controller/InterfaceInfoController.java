@@ -5,17 +5,20 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dy.client.DyApiClient;
-import com.dy.common.model.entity.InterfaceInfo;
-import com.dy.common.model.entity.User;
+import com.dy.dycommon.common.*;
+import com.dy.dycommon.constant.CommonConstant;
+import com.dy.dycommon.model.dto.interfaceinfo.InterfaceInfoAddRequest;
+import com.dy.dycommon.model.dto.interfaceinfo.InterfaceInfoInvokeRequest;
+import com.dy.dycommon.model.dto.interfaceinfo.InterfaceInfoQueryRequest;
+import com.dy.dycommon.model.dto.interfaceinfo.InterfaceInfoUpdateRequest;
+import com.dy.dycommon.model.entity.InterfaceInfo;
+import com.dy.dycommon.model.entity.User;
+import com.dy.dycommon.model.enums.InterfaceInfoStatusEnum;
 import com.dy.project.annotation.AuthCheck;
-import com.dy.project.common.*;
-import com.dy.project.constant.CommonConstant;
+
+
 import com.dy.project.exception.BusinessException;
-import com.dy.project.model.dto.interfaceinfo.InterfaceInfoAddRequest;
-import com.dy.project.model.dto.interfaceinfo.InterfaceInfoInvokeRequest;
-import com.dy.project.model.dto.interfaceinfo.InterfaceInfoQueryRequest;
-import com.dy.project.model.dto.interfaceinfo.InterfaceInfoUpdateRequest;
-import com.dy.project.model.enums.InterfaceInfoStatusEnum;
+
 import com.dy.project.service.InterfaceInfoService;
 import com.dy.project.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -335,6 +338,7 @@ public class InterfaceInfoController {
 
         //  调用这个接口, 用户传递的 json 数据为 {"name":"dy"}
         //  原因在于我们在客户端里面 user 的属性就是 name, 如果不用 name 的话, json 解析就不能赋值
+        // TODO: 2024/2/23 这里的借用 SDK 来调用接口, 我们是写死了, 需要通过前端传来的请求来判断 
         com.dy.model.User user = JSONObject.parseObject(userRequestParams, com.dy.model.User.class);
 
         String name = dyApiClient.postJsonName(user);

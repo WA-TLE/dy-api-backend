@@ -1,9 +1,9 @@
 package com.dy.project.aop;
 
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
-import com.dy.common.model.entity.User;
+import com.dy.dycommon.common.ErrorCode;
+import com.dy.dycommon.model.entity.User;
 import com.dy.project.annotation.AuthCheck;
-import com.dy.project.common.ErrorCode;
 import com.dy.project.exception.BusinessException;
 
 import com.dy.project.service.UserService;

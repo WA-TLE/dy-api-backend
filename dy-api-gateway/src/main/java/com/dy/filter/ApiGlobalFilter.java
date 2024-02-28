@@ -2,11 +2,11 @@ package com.dy.filter;
 
 
 import cn.hutool.core.util.StrUtil;
-import com.dy.common.model.entity.InterfaceInfo;
-import com.dy.common.model.entity.User;
-import com.dy.common.service.InnerInterfaceInfoService;
-import com.dy.common.service.InnerUserInterfaceInfoService;
-import com.dy.common.service.InnerUserService;
+import com.dy.dycommon.model.entity.InterfaceInfo;
+import com.dy.dycommon.model.entity.User;
+import com.dy.dycommon.service.InnerInterfaceInfoService;
+import com.dy.dycommon.service.InnerUserInterfaceInfoService;
+import com.dy.dycommon.service.InnerUserService;
 import com.dy.utils.SignUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboReference;

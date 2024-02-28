@@ -7,6 +7,8 @@
     <file url="file://$PROJECT_DIR$/dy-api-common/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/dy-api-gateway/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/dy-api-interface/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dy-client-sdk/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dy-client-sdk/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
   </component>

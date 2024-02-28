@@ -99,7 +99,7 @@
 
         <dependency>
             <groupId>com.dy</groupId>
-            <artifactId>dy-api-client-sdk</artifactId>
+            <artifactId>dy-client-sdk</artifactId>
             <version>0.0.1</version>
         </dependency>
 

@@ -2,9 +2,9 @@ package com.dy.project.service.impl.inner;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.dy.common.model.entity.User;
-import com.dy.common.service.InnerUserService;
-import com.dy.project.common.ErrorCode;
+import com.dy.dycommon.common.ErrorCode;
+import com.dy.dycommon.model.entity.User;
+import com.dy.dycommon.service.InnerUserService;
 import com.dy.project.exception.BusinessException;
 import com.dy.project.mapper.UserMapper;
 import lombok.extern.slf4j.Slf4j;

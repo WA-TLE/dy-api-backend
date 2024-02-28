@@ -3,21 +3,24 @@ package com.dy.project.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dy.client.DyApiClient;
-import com.dy.common.model.entity.User;
+import com.dy.dycommon.common.BaseResponse;
+import com.dy.dycommon.common.DeleteRequest;
+import com.dy.dycommon.common.ErrorCode;
+import com.dy.dycommon.common.ResultUtils;
+import com.dy.dycommon.constant.CommonConstant;
+import com.dy.dycommon.constant.UserConstant;
+import com.dy.dycommon.model.dto.interfaceinfo.InterfaceInfoQueryRequest;
+import com.dy.dycommon.model.dto.user_interface.UserInterfaceInfoAddRequest;
+import com.dy.dycommon.model.dto.user_interface.UserInterfaceInfoQueryRequest;
+import com.dy.dycommon.model.dto.user_interface.UserInterfaceInfoUpdateRequest;
+import com.dy.dycommon.model.entity.User;
 import com.dy.project.annotation.AuthCheck;
-import com.dy.project.common.BaseResponse;
-import com.dy.project.common.DeleteRequest;
-import com.dy.project.common.ErrorCode;
-import com.dy.project.common.ResultUtils;
-import com.dy.project.constant.CommonConstant;
-import com.dy.project.constant.UserConstant;
-import com.dy.project.exception.BusinessException;
-import com.dy.project.model.dto.interfaceinfo.InterfaceInfoQueryRequest;
-import com.dy.project.model.dto.user_interface.UserInterfaceInfoAddRequest;
-import com.dy.project.model.dto.user_interface.UserInterfaceInfoQueryRequest;
-import com.dy.project.model.dto.user_interface.UserInterfaceInfoUpdateRequest;
 
-import com.dy.common.model.entity.UserInterfaceInfo;
+
+import com.dy.project.exception.BusinessException;
+
+
+import com.dy.dycommon.model.entity.UserInterfaceInfo;
 import com.dy.project.service.UserInterfaceInfoService;
 import com.dy.project.service.UserService;
 import lombok.extern.slf4j.Slf4j;

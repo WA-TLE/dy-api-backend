@@ -1,7 +1,7 @@
 package com.dy.project.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.dy.common.model.entity.UserInterfaceInfo;
+import com.dy.dycommon.model.entity.UserInterfaceInfo;
 
 
 /**

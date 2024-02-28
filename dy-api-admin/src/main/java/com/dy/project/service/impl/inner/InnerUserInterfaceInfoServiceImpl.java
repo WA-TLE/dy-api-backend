@@ -1,6 +1,6 @@
 package com.dy.project.service.impl.inner;
 
-import com.dy.common.service.InnerUserInterfaceInfoService;
+import com.dy.dycommon.service.InnerUserInterfaceInfoService;
 import com.dy.project.service.UserInterfaceInfoService;
 import org.apache.dubbo.config.annotation.DubboService;
 

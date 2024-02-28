@@ -3,14 +3,16 @@ package com.dy.project.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.plugins.pagination.PageDTO;
-import com.dy.common.model.entity.User;
-import com.dy.project.common.BaseResponse;
-import com.dy.project.common.DeleteRequest;
-import com.dy.project.common.ErrorCode;
-import com.dy.project.common.ResultUtils;
+import com.dy.dycommon.common.BaseResponse;
+import com.dy.dycommon.common.DeleteRequest;
+import com.dy.dycommon.common.ErrorCode;
+import com.dy.dycommon.common.ResultUtils;
+import com.dy.dycommon.model.dto.user.*;
+import com.dy.dycommon.model.entity.User;
+
+import com.dy.dycommon.model.vo.UserVO;
 import com.dy.project.exception.BusinessException;
-import com.dy.project.model.dto.user.*;
-import com.dy.project.model.vo.UserVO;
+
 import com.dy.project.service.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
