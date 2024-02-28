@@ -67,6 +67,12 @@ public class InterfaceInfoController {
         InterfaceInfo interfaceInfo = new InterfaceInfo();
         BeanUtils.copyProperties(interfaceInfoAddRequest, interfaceInfo);
 
+        // 获取当前用户 id
+        Long currUserId = userService.getLoginUser(request).getId();
+
+        interfaceInfo.setUserId(currUserId);
+
+
         // 校验
         // TODO: 2024/2/2 这里先改为 false, 等后期再优化用户 id
         interfaceInfoService.validInterfaceInfo(interfaceInfo, true);

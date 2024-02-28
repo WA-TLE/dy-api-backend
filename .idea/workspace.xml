@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f458926-69a8-481b-8e7c-cc9be271d444" name="Changes" comment="将工具类, 常量类, 异常类等放入 common 模块, 保持模块内聚性" />
+    <list default="true" id="2f458926-69a8-481b-8e7c-cc9be271d444" name="Changes" comment="dy-client-sdk 模块重新引入">
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/controller/InterfaceInfoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/controller/InterfaceInfoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dy-api-gateway/src/main/java/com/dy/filter/ApiGlobalFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/dy-api-gateway/src/main/java/com/dy/filter/ApiGlobalFilter.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -123,7 +128,7 @@
       <workItem from="1708692311574" duration="1713000" />
       <workItem from="1708699269555" duration="668000" />
       <workItem from="1708749167933" duration="292000" />
-      <workItem from="1709083338166" duration="5383000" />
+      <workItem from="1709083338166" duration="7032000" />
     </task>
     <task id="LOCAL-00001" summary="dy-api 项目多模块聚合&#10;&#10;将之前所有项目使用 maven 聚合到一个父项目中, 统一管理">
       <created>1708618347570</created>
@@ -139,7 +144,14 @@
       <option name="project" value="LOCAL" />
       <updated>1709089171640</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="dy-client-sdk 模块重新引入">
+      <created>1709089235471</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1709089235471</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -159,6 +171,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="dy-api 项目多模块聚合&#10;&#10;将之前所有项目使用 maven 聚合到一个父项目中, 统一管理" />
     <MESSAGE value="将工具类, 常量类, 异常类等放入 common 模块, 保持模块内聚性" />
-    <option name="LAST_COMMIT_MESSAGE" value="将工具类, 常量类, 异常类等放入 common 模块, 保持模块内聚性" />
+    <MESSAGE value="dy-client-sdk 模块重新引入" />
+    <option name="LAST_COMMIT_MESSAGE" value="dy-client-sdk 模块重新引入" />
   </component>
 </project>
