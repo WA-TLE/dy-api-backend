@@ -1,6 +1,9 @@
 package com.dy.dycommon.model.entity;
 
-import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -8,10 +11,9 @@ import java.util.Date;
 
 /**
  * 接口信息
- *
  * @TableName interface_info
  */
-@TableName(value = "interface_info")
+@TableName(value ="interface_info")
 @Data
 public class InterfaceInfo implements Serializable {
     /**
@@ -39,6 +41,30 @@ public class InterfaceInfo implements Serializable {
     private String url;
 
     /**
+     * 主机名
+     */
+    @TableField(value = "host")
+    private String host;
+
+    /**
+     * 请求参数
+     */
+    @TableField(value = "requestParams")
+    private String requestParams;
+
+    /**
+     * 请求参数说明
+     */
+    @TableField(value = "requestParamsRemark")
+    private String requestParamsRemark;
+
+    /**
+     * 响应参数说明
+     */
+    @TableField(value = "responseParamsRemark")
+    private String responseParamsRemark;
+
+    /**
      * 请求头
      */
     @TableField(value = "requestHeader")
@@ -63,12 +89,6 @@ public class InterfaceInfo implements Serializable {
     private String method;
 
     /**
-     * 请求参数
-     */
-    @TableField(value = "requestParams")
-    private String requestParams;
-
-    /**
      * 创建人
      */
     @TableField(value = "userId")
@@ -90,7 +110,6 @@ public class InterfaceInfo implements Serializable {
      * 是否删除(0-未删, 1-已删)
      */
     @TableField(value = "isDelete")
-    @TableLogic
     private Integer isDelete;
 
     @TableField(exist = false)
