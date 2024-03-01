@@ -47,6 +47,10 @@ dyapi:
     access-key: dingyu
     secret-key: Hello world
 
+dy:
+  gateway:
+    host: http://localhost:8090
+
 
 
 # 以下配置指定了应用的名称、使用的协议（Dubbo）、注册中心的类型（Nacos）和地址

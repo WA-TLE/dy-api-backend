@@ -1,14 +1,20 @@
 package com.dy.project.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.dy.client.DyApiClient;
 import com.dy.dycommon.common.ErrorCode;
 import com.dy.dycommon.model.entity.InterfaceInfo;
+import com.dy.dycommon.model.entity.User;
 import com.dy.project.exception.BusinessException;
 import com.dy.project.mapper.InterfaceInfoMapper;
 import com.dy.project.service.InterfaceInfoService;
+import com.dy.project.service.UserService;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author dy
@@ -18,6 +24,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class InterfaceInfoServiceImpl extends ServiceImpl<InterfaceInfoMapper, InterfaceInfo>
         implements InterfaceInfoService {
+
+
+    @Resource
+    private UserService userService;
+
 
     /**
      * 判断接口信息是否有效
@@ -50,7 +61,7 @@ public class InterfaceInfoServiceImpl extends ServiceImpl<InterfaceInfoMapper, I
         //  归根结底在于用户id 并没有得到!!!!
         if (add) {
             if (StringUtils.isAnyBlank(name, description, url, requestHeader, responseHeader, requestParams, method) ||
-            ObjectUtils.anyNull(userId)) {
+                    ObjectUtils.anyNull(userId)) {
 
                 throw new BusinessException(ErrorCode.PARAMS_ERROR);
             }
@@ -60,6 +71,21 @@ public class InterfaceInfoServiceImpl extends ServiceImpl<InterfaceInfoMapper, I
         }
 
 
+    }
+
+    /**
+     * 获取 请求转发的客户端
+     *
+     * @param request
+     * @return
+     */
+    @Override
+    public DyApiClient getDyApiClient(HttpServletRequest request) {
+        User user = userService.getLoginUser(request);
+        String accessKey = user.getAccessKey();
+        String secretKey = user.getSecretKey();
+
+        return new DyApiClient(accessKey, secretKey);
     }
 
 

@@ -1,13 +1,13 @@
 package com.dy.client;
 
+import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
-import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONUtil;
-import com.dy.model.User;
 import com.dy.utils.SignUtils;
 
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,10 +17,12 @@ import java.util.Map;
  * @Description:
  */
 public class DyApiClient {
+    
+    
 
     private String accessKey;
     private String secretKey;
-    public static final String REQUEST_ADDRESS = "http://localhost:8090";
+    public static  String GATEWAY_HOST = "http://localhost:8090";
     public DyApiClient() {
     }
 
@@ -29,57 +31,35 @@ public class DyApiClient {
         this.secretKey = secretKey;
     }
 
-    public String getName(String name) {
-        //可以单独传入http参数，这样参数会自动做URL编码，拼接在URL中
-        HashMap<String, Object> paramMap = new HashMap<>();
-        paramMap.put("name", "dy");
-
-        String result = HttpUtil.get(REQUEST_ADDRESS + "/api/name", paramMap);
-        System.out.println(result);
-        return result;
+    public void setHOST(String host) {
+        GATEWAY_HOST = host;
     }
 
-    public String postName(String name) {
-        HashMap<String, Object> paramMap = new HashMap<>();
-        paramMap.put("name", "dy");
 
-        String result = HttpUtil.post(REQUEST_ADDRESS + "/api/name", paramMap);
-        System.out.println(result);
-        return result;
-    }
+    public String invokeInterface(String params, String url, String method) {
 
-    public String postJsonName(User user) {
-
-        String json = JSONUtil.toJsonStr(user);
-
-        HttpResponse httpResponse = HttpRequest.post(REQUEST_ADDRESS + "/api/name/json")
-                .addHeaders(getHeaderMap(json))
-                .body(json)
+        // TODO: 2024/3/1 防止编码异常
+        HttpResponse httpResponse = HttpRequest.post(GATEWAY_HOST + url)
+                .header("Accept-Charset", CharsetUtil.UTF_8)
+                .addHeaders(getHeaderMap(params, method))
+                .body(params)
                 .execute();
 
-        System.out.println(httpResponse.getStatus());
+        String body = httpResponse.body();
 
-        String result = httpResponse.body();
-        System.out.println(result);
-
-        return result;
+        return JSONUtil.formatJsonStr(body);
     }
 
-    private Map<String, String> getHeaderMap(String body) {
-        HashMap<String, String> header = new HashMap<>();
-        header.put("accessKey", accessKey);
-//        header.put("secretKey", secretKey);
-
-        //  增加参数
-        header.put("nonce", RandomUtil.randomNumbers(4));
-        header.put("body", body);
-
-        header.put("timestamp", String.valueOf(System.currentTimeMillis() / 1000));
-        header.put("sign", SignUtils.getSign(body, secretKey));
-
-
-
-        return header;
+    private Map<String, String> getHeaderMap(String body, String method) {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("accessKey", accessKey);
+        map.put("timestamp", String.valueOf(System.currentTimeMillis() / 1000));
+        map.put("randomNum", RandomUtil.randomNumbers(5));
+        map.put("sign", SignUtils.getSign(body, secretKey));
+        body = URLEncoder.encode(body, CharsetUtil.CHARSET_UTF_8);
+        map.put("body", body);
+        map.put("method", method);
+        return map;
     }
 
 

@@ -46,8 +46,7 @@ public class InterfaceInfoController {
     @Resource
     private UserService userService;
 
-    @Resource
-    private DyApiClient dyApiClient;
+
 
 
     // region 增删改查
@@ -247,11 +246,15 @@ public class InterfaceInfoController {
         //   判断接口是否可以调用
         //   在接口上线前做一下测试是没有什么毛病的
         com.dy.model.User user = new com.dy.model.User();
-        String flag = dyApiClient.postJsonName(user);
 
-        if (StrUtil.hasBlank(flag)) {
-            throw new BusinessException(ErrorCode.SYSTEM_ERROR, "接口验证失败");
-        }
+        // TODO: 2024/3/1 接口上线前做测试
+
+
+//        String flag = dyApiClient.invokeInterface(user);
+//
+//        if (StrUtil.hasBlank(flag)) {
+//            throw new BusinessException(ErrorCode.SYSTEM_ERROR, "接口验证失败");
+//        }
 
         InterfaceInfo interfaceInfo = new InterfaceInfo();
         interfaceInfo.setStatus(InterfaceInfoStatusEnum.FEMALE.getValue());
@@ -317,40 +320,35 @@ public class InterfaceInfoController {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
 
-        //  获取接口 id
+        //  通过接口 id 获取要调用的接口
         long id = interfaceInfoInvokeRequest.getId();
 
+
         // 判断接口是否存在
-        InterfaceInfo InterfaceInfo = interfaceInfoService.getById(id);
-        if (InterfaceInfo == null) {
+        InterfaceInfo interfaceInfo = interfaceInfoService.getById(id);
+        if (interfaceInfo == null) {
             throw new BusinessException(ErrorCode.NOT_FOUND_ERROR);
         }
 
         //  判断接口是否可用
-        if (InterfaceInfo.getStatus() != InterfaceInfoStatusEnum.FEMALE.getValue()) {
-            throw new BusinessException(ErrorCode.OPERATION_ERROR);
+        if (interfaceInfo.getStatus() != InterfaceInfoStatusEnum.FEMALE.getValue()) {
+            throw new BusinessException(ErrorCode.FORBIDDEN_ERROR, "接口已关闭");
         }
 
-        //  用户是否有权限
-        User loginUser = userService.getLoginUser(request);
-        String accessKey = loginUser.getAccessKey();
-        String secretKey = loginUser.getSecretKey();
+        //  获取接口请求地址
+        String host = interfaceInfo.getHost();
+        String url = interfaceInfo.getUrl();
+        String requestParams = interfaceInfo.getRequestParams();
+        String method = interfaceInfo.getMethod();
 
-        DyApiClient dyApiClient = new DyApiClient(accessKey, secretKey);
+        //  获取 SDK客户端并调用
+        // TODO: 2024/3/1 防止异常
+        DyApiClient dyApiClient = interfaceInfoService.getDyApiClient(request);
 
-        //  获取用户请求参数
-        String userRequestParams = interfaceInfoInvokeRequest.getUserRequestParams();
-
-
-        //  调用这个接口, 用户传递的 json 数据为 {"name":"dy"}
-        //  原因在于我们在客户端里面 user 的属性就是 name, 如果不用 name 的话, json 解析就不能赋值
-        // TODO: 2024/2/23 这里的借用 SDK 来调用接口, 我们是写死了, 需要通过前端传来的请求来判断 
-        com.dy.model.User user = JSONObject.parseObject(userRequestParams, com.dy.model.User.class);
-
-        String name = dyApiClient.postJsonName(user);
+        String result = dyApiClient.invokeInterface(requestParams, url, method);
 
 
-        return ResultUtils.success(name);
+        return ResultUtils.success(result);
     }
 
 
