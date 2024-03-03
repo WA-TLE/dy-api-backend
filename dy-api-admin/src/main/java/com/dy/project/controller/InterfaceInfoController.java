@@ -315,6 +315,7 @@ public class InterfaceInfoController {
     public BaseResponse<Object> testInvokeInterface(@RequestBody InterfaceInfoInvokeRequest interfaceInfoInvokeRequest,
                                                       HttpServletRequest request) {
 
+
         //  1. 校验请求参数
         if (interfaceInfoInvokeRequest == null || interfaceInfoInvokeRequest.getId() < 0) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
@@ -338,7 +339,9 @@ public class InterfaceInfoController {
         //  获取接口请求地址
         String host = interfaceInfo.getHost();
         String url = interfaceInfo.getUrl();
-        String requestParams = interfaceInfo.getRequestParams();
+
+//        String requestParams = interfaceInfo.getRequestParams();
+        String requestParams = interfaceInfoInvokeRequest.getUserRequestParams();
         String method = interfaceInfo.getMethod();
 
         //  获取 SDK客户端并调用

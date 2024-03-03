@@ -45,6 +45,7 @@ public class DyApiClient {
                 .body(params)
                 .execute();
 
+        //  端点调试一下这个是个啥玩意
         String body = httpResponse.body();
 
         return JSONUtil.formatJsonStr(body);
@@ -54,8 +55,9 @@ public class DyApiClient {
         HashMap<String, String> map = new HashMap<>();
         map.put("accessKey", accessKey);
         map.put("timestamp", String.valueOf(System.currentTimeMillis() / 1000));
-        map.put("randomNum", RandomUtil.randomNumbers(5));
+        map.put("randomNum", RandomUtil.randomNumbers(4));
         map.put("sign", SignUtils.getSign(body, secretKey));
+        //  看一下 body 变成什么样子了
         body = URLEncoder.encode(body, CharsetUtil.CHARSET_UTF_8);
         map.put("body", body);
         map.put("method", method);

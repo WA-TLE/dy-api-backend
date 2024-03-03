@@ -1,7 +1,9 @@
 package com.dy.filter;
 
 
+import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.core.util.URLUtil;
 import com.dy.dycommon.model.entity.InterfaceInfo;
 import com.dy.dycommon.model.entity.User;
 import com.dy.dycommon.service.InnerInterfaceInfoService;
@@ -30,6 +32,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.net.InetSocketAddress;
+import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
@@ -72,13 +75,14 @@ public class ApiGlobalFilter implements GlobalFilter, Ordered {
 
         ServerHttpRequest request = exchange.getRequest();
 
-        String path = HOST + request.getPath().toString();
-        String method = request.getMethod().toString();
+        //  数据库中数据的路径已经做了拆分, 所以现在我们可以不用加 HOST 了
+        String path = request.getPath().toString();
+        //String method = request.getMethod().toString();
 
 
         log.info("请求头唯一标识: {}", request.getId());
         log.info("请求头信息: {}", request.getHeaders());
-        log.info("请求方法: {}", method);
+//        log.info("请求方法: {}", method);
         log.info("请求路径 value: {}" + path);
         InetSocketAddress remoteAddress = request.getRemoteAddress();
         String sourceAddress = null;
@@ -107,12 +111,15 @@ public class ApiGlobalFilter implements GlobalFilter, Ordered {
         //  1. 从请求头中获取 accessKey 和 secretKey 来判断是否为合法调用
         HttpHeaders headers = request.getHeaders();
         String accessKey = headers.getFirst("accessKey");
-        String nonce = headers.getFirst("nonce");
+        String randomNum = headers.getFirst("randomNum");
         String timestamp = headers.getFirst("timestamp");
         String sign = headers.getFirst("sign");
-        String body = headers.getFirst("body");
+        String method = headers.getFirst("method");
 
-        if (StrUtil.hasBlank(accessKey, nonce, timestamp, sign, body)) {
+        //  获取 body 的时候进行解码操作
+        String body = URLUtil.decode(headers.getFirst("body"), CharsetUtil.CHARSET_UTF_8);
+
+        if (StrUtil.hasBlank(accessKey, randomNum, timestamp, sign, body)) {
             return handleNoAuth(response);
         }
 
@@ -135,7 +142,7 @@ public class ApiGlobalFilter implements GlobalFilter, Ordered {
 
 
         //  判断随机数是否重复
-        if (Long.parseLong(nonce) > 10000) {
+        if (Long.parseLong(randomNum) > 10000) {
             return handleNoAuth(response);
         }
 

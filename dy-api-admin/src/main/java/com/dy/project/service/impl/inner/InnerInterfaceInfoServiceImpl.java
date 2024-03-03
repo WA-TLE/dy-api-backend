@@ -35,6 +35,8 @@ public class InnerInterfaceInfoServiceImpl implements InnerInterfaceInfoService 
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
 
+        log.info("url 和 method 为: {}, {}", url, method);
+
 
         LambdaQueryWrapper<InterfaceInfo> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper

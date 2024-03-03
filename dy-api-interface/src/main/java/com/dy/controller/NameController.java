@@ -27,13 +27,15 @@ public class NameController {
         return "post 你的名字为: " + name;
     }
 
-    @PostMapping("/json")
+    @PostMapping("/user")
     public String postJsonName(@RequestBody User user, HttpServletRequest request) {
 
         log.info("request: {}", request);
 
-        System.out.println("json post 你的名字为: " + user.getName());
-        String result = "json post 你的名字为: " + user.getName();
+        log.info("user: {}", user);
+
+        System.out.println("json post 你的名字为: " + user.getUsername());
+        String result = "json post 你的名字为: " + user.getUsername();
 
 
         return result;
