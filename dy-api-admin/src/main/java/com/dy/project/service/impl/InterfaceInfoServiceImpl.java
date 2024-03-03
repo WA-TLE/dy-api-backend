@@ -1,10 +1,15 @@
 package com.dy.project.service.impl;
 
+import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dy.client.DyApiClient;
 import com.dy.dycommon.common.ErrorCode;
 import com.dy.dycommon.model.entity.InterfaceInfo;
 import com.dy.dycommon.model.entity.User;
+import com.dy.dycommon.model.vo.InterfaceInfoVO;
+import com.dy.dycommon.model.vo.RequestParamsRemarkVO;
+import com.dy.dycommon.model.vo.ResponseParamsRemarkVO;
+import com.dy.dycommon.model.vo.UserVO;
 import com.dy.project.exception.BusinessException;
 import com.dy.project.mapper.InterfaceInfoMapper;
 import com.dy.project.service.InterfaceInfoService;
@@ -15,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * @author dy
@@ -86,6 +92,29 @@ public class InterfaceInfoServiceImpl extends ServiceImpl<InterfaceInfoMapper, I
         String secretKey = user.getSecretKey();
 
         return new DyApiClient(accessKey, secretKey);
+    }
+
+    @Override
+    public InterfaceInfoVO getInterfaceInfoVO(InterfaceInfo interfaceInfo, HttpServletRequest request) {
+
+        InterfaceInfoVO interfaceInfoVO = InterfaceInfoVO.objToVo(interfaceInfo);
+        // 1. 关联查询用户信息
+        Long userId = interfaceInfo.getUserId();
+        User user = null;
+        if (userId != null && userId > 0) {
+            user = userService.getById(userId);
+        }
+        UserVO userVO = userService.getUserVO(user);
+        interfaceInfoVO.setUser(userVO);
+        // 封装请求参数说明 和 响应参数说明
+        List<RequestParamsRemarkVO> requestParamsRemarkVOList = JSONUtil.toList(JSONUtil.parseArray(interfaceInfo.getRequestParamsRemark()), RequestParamsRemarkVO.class);
+        List<ResponseParamsRemarkVO> responseParamsRemarkVOList = JSONUtil.toList(JSONUtil.parseArray(interfaceInfo.getResponseParamsRemark()), ResponseParamsRemarkVO.class);
+        interfaceInfoVO.setRequestParamsRemark(requestParamsRemarkVOList);
+        interfaceInfoVO.setResponseParamsRemark(responseParamsRemarkVOList);
+        return interfaceInfoVO;
+
+
+
     }
 
 

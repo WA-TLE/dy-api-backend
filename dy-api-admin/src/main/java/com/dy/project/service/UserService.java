@@ -3,6 +3,7 @@ package com.dy.project.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.dy.dycommon.model.entity.User;
+import com.dy.dycommon.model.vo.UserVO;
 
 
 import javax.servlet.http.HttpServletRequest;
@@ -57,4 +58,6 @@ public interface UserService extends IService<User> {
      * @return
      */
     boolean userLogout(HttpServletRequest request);
+
+    UserVO getUserVO(User user);
 }

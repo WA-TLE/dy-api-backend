@@ -1,11 +1,13 @@
 package com.dy.project.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.crypto.digest.DigestUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dy.dycommon.common.ErrorCode;
 import com.dy.dycommon.model.entity.User;
+import com.dy.dycommon.model.vo.UserVO;
 import com.dy.project.exception.BusinessException;
 import com.dy.project.mapper.UserMapper;
 
@@ -167,6 +169,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         // 移除登录态
         request.getSession().removeAttribute(USER_LOGIN_STATE);
         return true;
+    }
+
+    @Override
+    public UserVO getUserVO(User user) {
+        if (user == null) {
+            return null;
+        }
+        UserVO userVO = new UserVO();
+        BeanUtil.copyProperties(user, userVO);
+        return userVO;
     }
 
 }

@@ -1,7 +1,5 @@
 package com.dy.project.controller;
 
-import cn.hutool.core.util.StrUtil;
-import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dy.client.DyApiClient;
@@ -14,6 +12,7 @@ import com.dy.dycommon.model.dto.interfaceinfo.InterfaceInfoUpdateRequest;
 import com.dy.dycommon.model.entity.InterfaceInfo;
 import com.dy.dycommon.model.entity.User;
 import com.dy.dycommon.model.enums.InterfaceInfoStatusEnum;
+import com.dy.dycommon.model.vo.InterfaceInfoVO;
 import com.dy.project.annotation.AuthCheck;
 
 
@@ -152,12 +151,22 @@ public class InterfaceInfoController {
      * @return
      */
     @GetMapping("/get/vo")
-    public BaseResponse<InterfaceInfo> getInterfaceInfoById(long id) {
+    public BaseResponse<InterfaceInfoVO> getInterfaceInfoVOById(long id, HttpServletRequest request) {
         if (id <= 0) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
         InterfaceInfo interfaceInfo = interfaceInfoService.getById(id);
-        return ResultUtils.success(interfaceInfo);
+
+        if (interfaceInfo == null) {
+            throw new BusinessException(ErrorCode.NOT_FOUND_ERROR);
+        }
+
+        //  将 interfaceInfo 转换为 interfaceInfoVO 的方法
+
+        InterfaceInfoVO interfaceInfoVO = interfaceInfoService.getInterfaceInfoVO(interfaceInfo, request);
+
+
+        return ResultUtils.success(interfaceInfoVO);
     }
 
     /**

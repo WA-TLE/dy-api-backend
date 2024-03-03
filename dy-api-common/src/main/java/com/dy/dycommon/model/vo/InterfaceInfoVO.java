@@ -16,8 +16,8 @@ import java.util.List;
  * 接口调用分析视图
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
-public class InterfaceInfoVO extends InterfaceInfo implements Serializable {
+
+public class InterfaceInfoVO  implements Serializable {
 
     private final static Gson GSON = new Gson();
     /**

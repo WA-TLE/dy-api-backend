@@ -3,6 +3,7 @@ package com.dy.project.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.dy.client.DyApiClient;
 import com.dy.dycommon.model.entity.InterfaceInfo;
+import com.dy.dycommon.model.vo.InterfaceInfoVO;
 import org.apache.coyote.Request;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,4 +19,5 @@ public interface InterfaceInfoService extends IService<InterfaceInfo> {
 
     DyApiClient getDyApiClient(HttpServletRequest request);
 
+    InterfaceInfoVO getInterfaceInfoVO(InterfaceInfo interfaceInfo, HttpServletRequest request);
 }

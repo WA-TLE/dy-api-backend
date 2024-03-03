@@ -4,19 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f458926-69a8-481b-8e7c-cc9be271d444" name="Changes" comment="完成返回用户名接口">
-      <change afterPath="$PROJECT_DIR$/dy-api-common/src/main/java/com/dy/dycommon/model/vo/RequestParamsRemarkVO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dy-api-common/src/main/java/com/dy/dycommon/model/vo/ResponseParamsRemarkVO.java" afterDir="false" />
+    <list default="true" id="2f458926-69a8-481b-8e7c-cc9be271d444" name="Changes" comment="查询调用次数 Top3 的接口信息">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/controller/AnalysisController.java" beforeDir="false" afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/controller/AnalysisController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/controller/InterfaceInfoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/controller/InterfaceInfoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/service/UserInterfaceInfoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/service/UserInterfaceInfoService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/service/impl/UserInterfaceInfoServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/service/impl/UserInterfaceInfoServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dy-api-admin/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/dy-api-admin/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/service/InterfaceInfoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/service/InterfaceInfoService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/service/impl/InterfaceInfoServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/service/impl/InterfaceInfoServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/service/impl/UserServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dy-api-common/src/main/java/com/dy/dycommon/model/vo/InterfaceInfoVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/dy-api-common/src/main/java/com/dy/dycommon/model/vo/InterfaceInfoVO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dy-api-gateway/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/dy-api-gateway/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dy-api-interface/src/main/java/com/dy/controller/NameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/dy-api-interface/src/main/java/com/dy/controller/NameController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dy-api-interface/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/dy-api-interface/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -152,7 +147,7 @@
       <workItem from="1709197143285" duration="3918000" />
       <workItem from="1709264179408" duration="447000" />
       <workItem from="1709296125042" duration="6611000" />
-      <workItem from="1709444454606" duration="14963000" />
+      <workItem from="1709444454606" duration="16219000" />
     </task>
     <task id="LOCAL-00001" summary="dy-api 项目多模块聚合&#10;&#10;将之前所有项目使用 maven 聚合到一个父项目中, 统一管理">
       <created>1708618347570</created>
@@ -203,7 +198,14 @@
       <option name="project" value="LOCAL" />
       <updated>1709457053901</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="查询调用次数 Top3 的接口信息">
+      <created>1709471827636</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1709471827636</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -229,7 +231,8 @@
     <MESSAGE value="DyApiClient 客户端改造&#10;&#10;invokeInterface 方法参数更改, 增加 url 参数 (可以自动选择接口调用)" />
     <MESSAGE value="跑通用户名调用接口" />
     <MESSAGE value="完成返回用户名接口" />
-    <option name="LAST_COMMIT_MESSAGE" value="完成返回用户名接口" />
+    <MESSAGE value="查询调用次数 Top3 的接口信息" />
+    <option name="LAST_COMMIT_MESSAGE" value="查询调用次数 Top3 的接口信息" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
