@@ -122,6 +122,7 @@ public class InterfaceInfoController {
     @PostMapping("/update")
     public BaseResponse<Boolean> updateInterfaceInfo(@RequestBody InterfaceInfoUpdateRequest interfaceInfoUpdateRequest,
                                                      HttpServletRequest request) {
+        // TODO: 2024/3/3 这里可以使用注解来优化一下 管理员注解
         if (interfaceInfoUpdateRequest == null || interfaceInfoUpdateRequest.getId() <= 0) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
@@ -176,8 +177,9 @@ public class InterfaceInfoController {
      * @return
      */
     @AuthCheck(mustRole = "admin")
-    @GetMapping("/list")
-    public BaseResponse<List<InterfaceInfo>> listInterfaceInfo(InterfaceInfoQueryRequest interfaceInfoQueryRequest) {
+    @GetMapping("/list/page/vo")
+    public BaseResponse<List<InterfaceInfo>> listInterfaceInfo(InterfaceInfoQueryRequest interfaceInfoQueryRequest,
+                                                               HttpServletRequest request) {
         InterfaceInfo interfaceInfoQuery = new InterfaceInfo();
         if (interfaceInfoQueryRequest != null) {
             BeanUtils.copyProperties(interfaceInfoQueryRequest, interfaceInfoQuery);
@@ -225,6 +227,8 @@ public class InterfaceInfoController {
     }
 
     // endregion
+
+    // region 发布下线接口调用
 
     // TODO: 2024/2/4 关于代码重复使用问题的解决
     /**
@@ -290,7 +294,8 @@ public class InterfaceInfoController {
     public BaseResponse<Boolean> offlineInterfaceInfo(@RequestBody IdRequest idRequest,
                                                       HttpServletRequest request) {
 
-        //  如果 idRequest 为 null 或者 id < 0, 抛出异常
+
+        //  todo 上线, 下线接口需要完善
         if (idRequest == null || idRequest.getId() < 0) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
@@ -350,7 +355,7 @@ public class InterfaceInfoController {
         String url = interfaceInfo.getUrl();
 
 //        String requestParams = interfaceInfo.getRequestParams();
-        String requestParams = interfaceInfoInvokeRequest.getUserRequestParams();
+        String requestParams = interfaceInfoInvokeRequest.getRequestParams();
         String method = interfaceInfo.getMethod();
 
         //  获取 SDK客户端并调用
@@ -362,6 +367,8 @@ public class InterfaceInfoController {
 
         return ResultUtils.success(result);
     }
+
+    // endregion
 
 
 
