@@ -11,21 +11,10 @@ import org.springframework.web.bind.annotation.*;
  * @Description: 获取姓名接口
  */
 @RestController
-@RequestMapping("/name")
+@RequestMapping("/api/name")
 @Slf4j
 public class NameController {
 
-    @GetMapping
-    public String getName(@RequestParam String name) {
-        System.out.println("get 你的名字为: " + name);
-        return "get 你的名字为: " + name;
-    }
-
-    @PostMapping
-    public String postName(@RequestParam String name) {
-        System.out.println("post 你的名字为: " + name);
-        return "post 你的名字为: " + name;
-    }
 
     @PostMapping("/user")
     public String postJsonName(@RequestBody User user, HttpServletRequest request) {

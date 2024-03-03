@@ -151,7 +151,7 @@ public class InterfaceInfoController {
      * @param id
      * @return
      */
-    @GetMapping("/get")
+    @GetMapping("/get/vo")
     public BaseResponse<InterfaceInfo> getInterfaceInfoById(long id) {
         if (id <= 0) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);

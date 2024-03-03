@@ -10,6 +10,9 @@ import com.dy.project.service.UserInterfaceInfoService;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+import java.util.List;
+
 /**
  * @author 微光
  * @description 针对表【user_interface_info(用户调用接口关系)】的数据库操作Service实现
@@ -18,6 +21,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserInterfaceInfoServiceImpl extends ServiceImpl<UserInterfaceInfoMapper, UserInterfaceInfo>
         implements UserInterfaceInfoService {
+
+    @Resource
+    private UserInterfaceInfoMapper userInterfaceInfoMapper;
     /**
      * 判断接口信息是否有效
      *
@@ -82,6 +88,11 @@ public class UserInterfaceInfoServiceImpl extends ServiceImpl<UserInterfaceInfoM
                 .setSql("leftNum = leftNum - 1, totalNum = totalNum + 1");
 
         return this.update(lambdaUpdateWrapper);
+    }
+
+    @Override
+    public List<UserInterfaceInfo> listTopInvokeInterfaceInfo(Integer limit) {
+        return userInterfaceInfoMapper.listTopInvokeInterfaceInfo(limit);
     }
 }
 

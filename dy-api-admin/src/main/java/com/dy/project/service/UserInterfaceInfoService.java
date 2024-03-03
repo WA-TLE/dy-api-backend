@@ -3,6 +3,8 @@ package com.dy.project.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.dy.dycommon.model.entity.UserInterfaceInfo;
 
+import java.util.List;
+
 
 /**
 * @author 微光
@@ -13,4 +15,6 @@ public interface UserInterfaceInfoService extends IService<UserInterfaceInfo> {
     void validInterfaceInfo(UserInterfaceInfo InterfaceInfo, boolean add);
 
     boolean invokeCount(Long interfaceInfoId, Long userId);
+
+    List<UserInterfaceInfo> listTopInvokeInterfaceInfo(Integer limit);
 }

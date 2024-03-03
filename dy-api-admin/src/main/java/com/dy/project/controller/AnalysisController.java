@@ -14,6 +14,7 @@ import com.dy.project.annotation.AuthCheck;
 import com.dy.project.exception.BusinessException;
 import com.dy.project.mapper.UserInterfaceInfoMapper;
 import com.dy.project.service.InterfaceInfoService;
+import com.dy.project.service.UserInterfaceInfoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.util.CollectionUtils;
@@ -37,12 +38,12 @@ import java.util.stream.Collectors;
 public class AnalysisController {
 
     @Resource
-    private UserInterfaceInfoMapper userInterfaceInfoMapper;
+    private UserInterfaceInfoService userInterfaceInfoService;
 
     @Resource
     private InterfaceInfoService interfaceInfoService;
 
-    @GetMapping("/top/interface/invoke")
+    /*@GetMapping("/top/interface/invoke")
     @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
     public BaseResponse<List<InterfaceInfoVO>> listTopInvokeInterfaceInfo() {
         // 查询调用次数最多的接口信息列表
@@ -79,6 +80,36 @@ public class AnalysisController {
         }).collect(Collectors.toList());
         // 返回处理结果
         return ResultUtils.success(interfaceInfoVOList);
+    }*/
+
+    /**
+     * 查询调用次数 Top3 的接口信息
+     *
+     * @return
+     */
+    public BaseResponse<List<InterfaceInfoVO>> listTopInvokeInterfaceInfo() {
+        // 查询调用次数前3名的接口
+        List<UserInterfaceInfo> userInterfaceInfoList = userInterfaceInfoService.listTopInvokeInterfaceInfo(3);
+        if (userInterfaceInfoList.isEmpty()) {
+            throw new BusinessException(ErrorCode.SYSTEM_ERROR, "接口信息不存在");
+        }
+        // 根据接口id分组
+        Map<Long, List<UserInterfaceInfo>> interfaceInfoIdObjMap = userInterfaceInfoList.stream()
+                .collect(Collectors.groupingBy(UserInterfaceInfo::getInterfaceInfoId));
+        // 查询所有接口id的接口信息
+        List<InterfaceInfo> list = interfaceInfoService.lambdaQuery()
+                .in(InterfaceInfo::getId, interfaceInfoIdObjMap.keySet())
+                .list();
+        if (list.isEmpty()) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR, "接口信息不存在");
+        }
+        // 组装返回结果
+        List<InterfaceInfoVO> result = list.stream().map(interfaceInfo -> {
+            InterfaceInfoVO interfaceInfoVO = InterfaceInfoVO.objToVo(interfaceInfo);
+            interfaceInfoVO.setTotalNum(interfaceInfoIdObjMap.get(interfaceInfo.getId()).get(0).getTotalNum());
+            return interfaceInfoVO;
+        }).collect(Collectors.toList());
+        return ResultUtils.success(result);
     }
 
 

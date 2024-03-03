@@ -9,7 +9,7 @@ spring:
         - id: api_route
           uri: http://localhost:8081/
           predicates:
-            - Path=/api/**
+            - Path=/**
 
 # 网关的日志信息
 logging:
