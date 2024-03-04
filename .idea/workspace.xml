@@ -4,26 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f458926-69a8-481b-8e7c-cc9be271d444" name="Changes" comment="对 InterfaceInfo 的增删改查实体类进行优化">
-      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/exception/ThrowUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/utils/SqlUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dy-api-common/src/main/java/com/dy/dycommon/model/dto/user/UserUpdateMyRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dy-api-common/src/main/java/com/dy/dycommon/model/enums/UserRoleEnum.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dy-api-common/src/main/java/com/dy/dycommon/model/vo/LoginUserVO.java" afterDir="false" />
+    <list default="true" id="2f458926-69a8-481b-8e7c-cc9be271d444" name="Changes" comment="增加抛异常工具类">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/controller/AnalysisController.java" beforeDir="false" afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/controller/AnalysisController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/controller/InterfaceInfoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/controller/InterfaceInfoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/service/InterfaceInfoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/service/InterfaceInfoService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/service/impl/InterfaceInfoServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/service/impl/InterfaceInfoServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/service/impl/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dy-api-common/src/main/java/com/dy/dycommon/model/dto/user/UserAddRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/dy-api-common/src/main/java/com/dy/dycommon/model/dto/user/UserAddRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dy-api-common/src/main/java/com/dy/dycommon/model/dto/user/UserLoginRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/dy-api-common/src/main/java/com/dy/dycommon/model/dto/user/UserLoginRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dy-api-common/src/main/java/com/dy/dycommon/model/dto/user/UserQueryRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/dy-api-common/src/main/java/com/dy/dycommon/model/dto/user/UserQueryRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dy-api-common/src/main/java/com/dy/dycommon/model/dto/user/UserRegisterRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/dy-api-common/src/main/java/com/dy/dycommon/model/dto/user/UserRegisterRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dy-api-common/src/main/java/com/dy/dycommon/model/dto/user/UserUpdateRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/dy-api-common/src/main/java/com/dy/dycommon/model/dto/user/UserUpdateRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dy-api-common/src/main/java/com/dy/dycommon/model/vo/UserVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/dy-api-common/src/main/java/com/dy/dycommon/model/vo/UserVO.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -177,7 +160,7 @@
       <workItem from="1709264179408" duration="447000" />
       <workItem from="1709296125042" duration="6611000" />
       <workItem from="1709444454606" duration="19381000" />
-      <workItem from="1709516129955" duration="5894000" />
+      <workItem from="1709516129955" duration="6651000" />
     </task>
     <task id="LOCAL-00001" summary="dy-api 项目多模块聚合&#10;&#10;将之前所有项目使用 maven 聚合到一个父项目中, 统一管理">
       <created>1708618347570</created>
@@ -249,7 +232,28 @@
       <option name="project" value="LOCAL" />
       <updated>1709474940306</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="对 UserService 的方法进行扩展升级&#10;&#10;增加更新 ak, sk 的方法, 获取 QueryWrapper 方法, 将 User 转换为 VO 的方法">
+      <created>1709526474962</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1709526474962</updated>
+    </task>
+    <task id="LOCAL-00012" summary="更改 Controller 层路径, 适配前端">
+      <created>1709526590565</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1709526590565</updated>
+    </task>
+    <task id="LOCAL-00013" summary="增加抛异常工具类">
+      <created>1709526620038</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1709526620038</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -278,7 +282,10 @@
     <MESSAGE value="查询调用次数 Top3 的接口信息" />
     <MESSAGE value="完善根据 id 获取接口视图&#10;&#10;在 InterfaceInfoService 和 UserService 中增加 getVO 方法.&#10;&#10;InterfaceInfoVO 中增加一些属性" />
     <MESSAGE value="对 InterfaceInfo 的增删改查实体类进行优化" />
-    <option name="LAST_COMMIT_MESSAGE" value="对 InterfaceInfo 的增删改查实体类进行优化" />
+    <MESSAGE value="对 UserService 的方法进行扩展升级&#10;&#10;增加更新 ak, sk 的方法, 获取 QueryWrapper 方法, 将 User 转换为 VO 的方法" />
+    <MESSAGE value="更改 Controller 层路径, 适配前端" />
+    <MESSAGE value="增加抛异常工具类" />
+    <option name="LAST_COMMIT_MESSAGE" value="增加抛异常工具类" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>

@@ -1,6 +1,5 @@
 package com.dy.project.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.dy.dycommon.common.BaseResponse;
 import com.dy.dycommon.common.ErrorCode;
 import com.dy.dycommon.common.ResultUtils;
@@ -9,15 +8,10 @@ import com.dy.dycommon.model.entity.InterfaceInfo;
 import com.dy.dycommon.model.entity.UserInterfaceInfo;
 import com.dy.dycommon.model.vo.InterfaceInfoVO;
 import com.dy.project.annotation.AuthCheck;
-
-
 import com.dy.project.exception.BusinessException;
-import com.dy.project.mapper.UserInterfaceInfoMapper;
 import com.dy.project.service.InterfaceInfoService;
 import com.dy.project.service.UserInterfaceInfoService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
