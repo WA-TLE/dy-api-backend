@@ -82,11 +82,9 @@ public class AnalysisController {
         return ResultUtils.success(interfaceInfoVOList);
     }*/
 
-    /**
-     * 查询调用次数 Top3 的接口信息
-     *
-     * @return
-     */
+
+    @GetMapping("/top/interface/invoke")
+    @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
     public BaseResponse<List<InterfaceInfoVO>> listTopInvokeInterfaceInfo() {
         // 查询调用次数前3名的接口
         List<UserInterfaceInfo> userInterfaceInfoList = userInterfaceInfoService.listTopInvokeInterfaceInfo(3);

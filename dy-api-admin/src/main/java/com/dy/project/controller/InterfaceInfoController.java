@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dy.client.DyApiClient;
 import com.dy.dycommon.common.*;
 import com.dy.dycommon.constant.CommonConstant;
+import com.dy.dycommon.constant.UserConstant;
 import com.dy.dycommon.model.dto.interfaceinfo.InterfaceInfoAddRequest;
 import com.dy.dycommon.model.dto.interfaceinfo.InterfaceInfoInvokeRequest;
 import com.dy.dycommon.model.dto.interfaceinfo.InterfaceInfoQueryRequest;
@@ -18,10 +19,10 @@ import com.dy.project.annotation.AuthCheck;
 
 import com.dy.project.exception.BusinessException;
 
+import com.dy.project.exception.ThrowUtils;
 import com.dy.project.service.InterfaceInfoService;
 import com.dy.project.service.UserService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -170,15 +171,38 @@ public class InterfaceInfoController {
         return ResultUtils.success(interfaceInfoVO);
     }
 
+    @PostMapping("/list/page/vo")
+    public BaseResponse<Page<InterfaceInfoVO>> listInterfaceInfoVOByPage(@RequestBody InterfaceInfoQueryRequest interfaceInfoQueryRequest,
+                                                                         HttpServletRequest request) {
+        long current = interfaceInfoQueryRequest.getCurrent();
+        long size = interfaceInfoQueryRequest.getPageSize();
+        interfaceInfoQueryRequest.setSortField("createTime");
+        // 倒序排序
+        interfaceInfoQueryRequest.setSortOrder(CommonConstant.SORT_ORDER_DESC);
+        // 限制爬虫
+        ThrowUtils.throwIf(size > 20, ErrorCode.PARAMS_ERROR);
+        Page<InterfaceInfo> interfaceInfoPage = interfaceInfoService.page(new Page<>(current, size),
+                interfaceInfoService.getQueryWrapper(interfaceInfoQueryRequest));
+        return ResultUtils.success(interfaceInfoService.getInterfaceInfoVOPage(interfaceInfoPage, request));
+    }
+
+
+    /**
+     * 分页获取列表
+     *
+     * @param interfaceInfoQueryRequest
+     * @param request
+     * @return
+     *//*
     /**
      * 获取列表（仅管理员可使用）
      *
      * @param interfaceInfoQueryRequest
      * @return
      */
-    @AuthCheck(mustRole = "admin")
-    @GetMapping("/list/page/vo")
-    public BaseResponse<List<InterfaceInfo>> listInterfaceInfo(InterfaceInfoQueryRequest interfaceInfoQueryRequest,
+//    @AuthCheck(mustRole = "admin")
+
+   /* public BaseResponse<List<InterfaceInfo>> listInterfaceInfo(InterfaceInfoQueryRequest interfaceInfoQueryRequest,
                                                                HttpServletRequest request) {
         InterfaceInfo interfaceInfoQuery = new InterfaceInfo();
         if (interfaceInfoQueryRequest != null) {
@@ -187,15 +211,9 @@ public class InterfaceInfoController {
         QueryWrapper<InterfaceInfo> queryWrapper = new QueryWrapper<>(interfaceInfoQuery);
         List<InterfaceInfo> interfaceInfoList = interfaceInfoService.list(queryWrapper);
         return ResultUtils.success(interfaceInfoList);
-    }
+    }*/
 
-    /**
-     * 分页获取列表
-     *
-     * @param interfaceInfoQueryRequest
-     * @param request
-     * @return
-     */
+    /*
     @GetMapping("/list/page")
     public BaseResponse<Page<InterfaceInfo>> listInterfaceInfoByPage(InterfaceInfoQueryRequest interfaceInfoQueryRequest, HttpServletRequest request) {
         if (interfaceInfoQueryRequest == null) {
@@ -224,6 +242,29 @@ public class InterfaceInfoController {
                 sortOrder.equals(CommonConstant.SORT_ORDER_ASC), sortField);
         Page<InterfaceInfo> interfaceInfoPage = interfaceInfoService.page(new Page<>(current, size), queryWrapper);
         return ResultUtils.success(interfaceInfoPage);
+    }*/
+
+    /**
+     * 根据 当前用户ID 分页获取列表（封装类）
+     *
+     * @param interfaceInfoQueryRequest 查询条件
+     * @param request                   请求
+     * @return 分页列表
+     */
+    @PostMapping("/my/list/page/vo")
+    public BaseResponse<Page<InterfaceInfoVO>> listInterfaceInfoVOByUserIdPage(@RequestBody InterfaceInfoQueryRequest interfaceInfoQueryRequest,
+                                                                               HttpServletRequest request) {
+        long current = interfaceInfoQueryRequest.getCurrent();
+        long size = interfaceInfoQueryRequest.getPageSize();
+        interfaceInfoQueryRequest.setSortField("createTime");
+        // 倒序排序
+        interfaceInfoQueryRequest.setSortOrder(CommonConstant.SORT_ORDER_DESC);
+        // 限制爬虫
+        ThrowUtils.throwIf(size > 30, ErrorCode.PARAMS_ERROR);
+        Page<InterfaceInfo> interfaceInfoPage = interfaceInfoService.page(new Page<>(current, size),
+                interfaceInfoService.getQueryWrapper(interfaceInfoQueryRequest));
+
+        return ResultUtils.success(interfaceInfoService.getInterfaceInfoVOByUserIdPage(interfaceInfoPage, request));
     }
 
     // endregion
@@ -290,7 +331,8 @@ public class InterfaceInfoController {
      * @return
      */
     @PostMapping("/offline")
-    @AuthCheck(mustRole = "admin")
+//    @AuthCheck(mustRole = "admin")
+    @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
     public BaseResponse<Boolean> offlineInterfaceInfo(@RequestBody IdRequest idRequest,
                                                       HttpServletRequest request) {
 
