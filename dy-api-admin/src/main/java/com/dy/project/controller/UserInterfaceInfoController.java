@@ -14,13 +14,9 @@ import com.dy.dycommon.model.dto.user_interface.UserInterfaceInfoAddRequest;
 import com.dy.dycommon.model.dto.user_interface.UserInterfaceInfoQueryRequest;
 import com.dy.dycommon.model.dto.user_interface.UserInterfaceInfoUpdateRequest;
 import com.dy.dycommon.model.entity.User;
-import com.dy.project.annotation.AuthCheck;
-
-
-import com.dy.project.exception.BusinessException;
-
-
 import com.dy.dycommon.model.entity.UserInterfaceInfo;
+import com.dy.project.annotation.AuthCheck;
+import com.dy.project.exception.BusinessException;
 import com.dy.project.service.UserInterfaceInfoService;
 import com.dy.project.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -62,24 +58,27 @@ public class UserInterfaceInfoController {
      * @return
      */
     @PostMapping("/add")
-    @AuthCheck(anyRole = UserConstant.ADMIN_ROLE)
     public BaseResponse<Long> addInterfaceInfo(@RequestBody UserInterfaceInfoAddRequest userInterfaceInfoAddRequest, HttpServletRequest request) {
+        //  1. 校验参数
         if (userInterfaceInfoAddRequest == null) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
-        UserInterfaceInfo interfaceInfo = new UserInterfaceInfo();
-        BeanUtils.copyProperties(userInterfaceInfoAddRequest, interfaceInfo);
+        UserInterfaceInfo userInterfaceInfo = new UserInterfaceInfo();
+        BeanUtils.copyProperties(userInterfaceInfoAddRequest, userInterfaceInfo);
 
-
-        userInterfaceInfoService.validInterfaceInfo(interfaceInfo, true);
 
         User loginUser = userService.getLoginUser(request);
-        interfaceInfo.setUserId(loginUser.getId());
-        boolean result = userInterfaceInfoService.save(interfaceInfo);
+        userInterfaceInfo.setUserId(loginUser.getId());
+        userInterfaceInfo.setLeftNum(999999);
+        userInterfaceInfo.setTotalNum(0);
+
+        userInterfaceInfoService.validInterfaceInfo(userInterfaceInfo, true);
+
+        boolean result = userInterfaceInfoService.save(userInterfaceInfo);
         if (!result) {
             throw new BusinessException(ErrorCode.OPERATION_ERROR);
         }
-        long newInterfaceInfoId = interfaceInfo.getId();
+        long newInterfaceInfoId = userInterfaceInfo.getId();
         return ResultUtils.success(newInterfaceInfoId);
     }
 

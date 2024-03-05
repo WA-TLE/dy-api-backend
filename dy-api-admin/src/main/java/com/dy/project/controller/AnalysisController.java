@@ -31,6 +31,8 @@ import java.util.stream.Collectors;
 @Slf4j
 public class AnalysisController {
 
+    // TODO: 2024/3/5 头像上传功能
+    // TODO: 2024/3/5 前端时间显示格式问题
     @Resource
     private UserInterfaceInfoService userInterfaceInfoService;
 

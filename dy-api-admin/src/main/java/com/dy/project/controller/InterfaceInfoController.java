@@ -187,20 +187,6 @@ public class InterfaceInfoController {
     }
 
 
-    /**
-     * 分页获取列表
-     *
-     * @param interfaceInfoQueryRequest
-     * @param request
-     * @return
-     *//*
-    /**
-     * 获取列表（仅管理员可使用）
-     *
-     * @param interfaceInfoQueryRequest
-     * @return
-     */
-//    @AuthCheck(mustRole = "admin")
 
    /* public BaseResponse<List<InterfaceInfo>> listInterfaceInfo(InterfaceInfoQueryRequest interfaceInfoQueryRequest,
                                                                HttpServletRequest request) {

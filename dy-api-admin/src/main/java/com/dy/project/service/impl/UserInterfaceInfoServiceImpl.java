@@ -37,16 +37,28 @@ public class UserInterfaceInfoServiceImpl extends ServiceImpl<UserInterfaceInfoM
         if (userInterfaceInfo == null) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
+
+
+
         Long userId = userInterfaceInfo.getUserId();
         Long interfaceInfoId = userInterfaceInfo.getInterfaceInfoId();
         Integer totalNum = userInterfaceInfo.getTotalNum();
         Integer leftNum = userInterfaceInfo.getLeftNum();
         Integer status = userInterfaceInfo.getStatus();
 
+        //  查询该用户是否已经开通过接口
+        List<UserInterfaceInfo> list = this.lambdaQuery()
+                .eq(UserInterfaceInfo::getUserId, userId)
+                .eq(UserInterfaceInfo::getInterfaceInfoId, interfaceInfoId)
+                .list();
+
+        if (!list.isEmpty()) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR, "用户已开通接口");
+        }
+
 
         if (add) {
             if (ObjectUtils.anyNull(userId, interfaceInfoId, totalNum, leftNum)) {
-
                 throw new BusinessException(ErrorCode.PARAMS_ERROR);
             }
         }
