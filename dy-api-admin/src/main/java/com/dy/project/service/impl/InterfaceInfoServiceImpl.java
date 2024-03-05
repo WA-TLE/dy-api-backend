@@ -166,53 +166,36 @@ public class InterfaceInfoServiceImpl extends ServiceImpl<InterfaceInfoMapper, I
     public Page<InterfaceInfoVO>  getInterfaceInfoVOByUserIdPage(Page<InterfaceInfo> interfaceInfoPage, HttpServletRequest request) {
         List<InterfaceInfo> interfaceInfoList = interfaceInfoPage.getRecords();
         Page<InterfaceInfoVO> interfaceInfoVOPage = new Page<>(interfaceInfoPage.getCurrent(), interfaceInfoPage.getSize(), interfaceInfoPage.getTotal());
-        // 获取当前登录用户
-        User loginUser = userService.getLoginUser(request);
         if (CollectionUtils.isEmpty(interfaceInfoList)) {
             return interfaceInfoVOPage;
         }
-        // 1. 关联查询用户信息
-        Set<Long> userIdSet = interfaceInfoList.stream().map(InterfaceInfo::getUserId).collect(Collectors.toSet());
-        Map<Long, List<User>> userIdUserListMap = userService.listByIds(userIdSet).stream()
-                .collect(Collectors.groupingBy(User::getId));
-        // 填充信息
+        // 传入当前用户ID
+        User loginUser = userService.getLoginUser(request);
+        Long userId = loginUser.getId();
+        // 过滤掉不是当前用户的接口，并且填充信息
         List<InterfaceInfoVO> interfaceInfoVOList = interfaceInfoList.stream()
                 .map(interfaceInfo -> {
                     InterfaceInfoVO interfaceInfoVO = InterfaceInfoVO.objToVo(interfaceInfo);
-                    // 创建人的用户ID
-                    Long userId = interfaceInfo.getUserId();
-
-                    // 判断是否是当前用户拥有的接口
-                    boolean isOwnedByCurrentUser = false;
-
-                    // 查询当前登录用户的接口调用次数
                     UserInterfaceInfo userInterfaceInfo = userInterfaceInfoService.lambdaQuery()
-                            .eq(UserInterfaceInfo::getUserId, loginUser.getId())
+                            .eq(UserInterfaceInfo::getUserId, userId)
                             .eq(UserInterfaceInfo::getInterfaceInfoId, interfaceInfo.getId())
                             .one();
-
                     if (userInterfaceInfo != null) {
-                        isOwnedByCurrentUser = true;
                         interfaceInfoVO.setTotalNum(userInterfaceInfo.getTotalNum());
                         interfaceInfoVO.setLeftNum(userInterfaceInfo.getLeftNum());
+                        // 封装请求参数说明和响应参数说明
+                        List<RequestParamsRemarkVO> requestParamsRemarkVOList = JSONUtil.toList(JSONUtil.parseArray(interfaceInfo.getRequestParamsRemark()), RequestParamsRemarkVO.class);
+                        List<ResponseParamsRemarkVO> responseParamsRemarkVOList = JSONUtil.toList(JSONUtil.parseArray(interfaceInfo.getResponseParamsRemark()), ResponseParamsRemarkVO.class);
+                        interfaceInfoVO.setRequestParamsRemark(requestParamsRemarkVOList);
+                        interfaceInfoVO.setResponseParamsRemark(responseParamsRemarkVOList);
+                        return interfaceInfoVO;
+                    } else {
+                        return null;
                     }
-
-                    // 获取用户信息
-                    User user = userIdUserListMap.getOrDefault(userId, Collections.emptyList()).stream().findFirst().orElse(null);
-                    interfaceInfoVO.setUser(userService.getUserVO(user));
-
-                    // 封装请求参数说明和响应参数说明
-                    List<RequestParamsRemarkVO> requestParamsRemarkVOList = JSONUtil.toList(JSONUtil.parseArray(interfaceInfo.getRequestParamsRemark()), RequestParamsRemarkVO.class);
-                    List<ResponseParamsRemarkVO> responseParamsRemarkVOList = JSONUtil.toList(JSONUtil.parseArray(interfaceInfo.getResponseParamsRemark()), ResponseParamsRemarkVO.class);
-                    interfaceInfoVO.setRequestParamsRemark(requestParamsRemarkVOList);
-                    interfaceInfoVO.setResponseParamsRemark(responseParamsRemarkVOList);
-
-                    // 设置是否为当前用户拥有的接口
-                    interfaceInfoVO.setIsOwnerByCurrentUser(isOwnedByCurrentUser);
-
-                    return interfaceInfoVO;
                 })
+                .filter(Objects::nonNull)
                 .collect(Collectors.toList());
+
 
         interfaceInfoVOPage.setRecords(interfaceInfoVOList);
         return interfaceInfoVOPage;

@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f458926-69a8-481b-8e7c-cc9be271d444" name="Changes" comment="增加博天api接口调用和 网易云音乐接口调用">
+    <list default="true" id="2f458926-69a8-481b-8e7c-cc9be271d444" name="Changes" comment="优化用户开通接口流程&#10;&#10;最开始忘记在 userInterfaceInfo 对象里面放入 userId 了">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/controller/AnalysisController.java" beforeDir="false" afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/controller/AnalysisController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/controller/InterfaceInfoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/controller/InterfaceInfoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/controller/UserInterfaceInfoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/controller/UserInterfaceInfoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/service/impl/UserInterfaceInfoServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/service/impl/UserInterfaceInfoServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -165,7 +162,7 @@
       <workItem from="1709444454606" duration="19381000" />
       <workItem from="1709516129955" duration="11535000" />
       <workItem from="1709558583492" duration="937000" />
-      <workItem from="1709611731326" duration="2428000" />
+      <workItem from="1709611731326" duration="4203000" />
     </task>
     <task id="LOCAL-00001" summary="dy-api 项目多模块聚合&#10;&#10;将之前所有项目使用 maven 聚合到一个父项目中, 统一管理">
       <created>1708618347570</created>
@@ -265,7 +262,14 @@
       <option name="project" value="LOCAL" />
       <updated>1709527327847</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="优化用户开通接口流程&#10;&#10;最开始忘记在 userInterfaceInfo 对象里面放入 userId 了">
+      <created>1709629264676</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1709629264676</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -298,20 +302,26 @@
     <MESSAGE value="更改 Controller 层路径, 适配前端" />
     <MESSAGE value="增加抛异常工具类" />
     <MESSAGE value="增加博天api接口调用和 网易云音乐接口调用" />
-    <option name="LAST_COMMIT_MESSAGE" value="增加博天api接口调用和 网易云音乐接口调用" />
+    <MESSAGE value="优化用户开通接口流程&#10;&#10;最开始忘记在 userInterfaceInfo 对象里面放入 userId 了" />
+    <option name="LAST_COMMIT_MESSAGE" value="优化用户开通接口流程&#10;&#10;最开始忘记在 userInterfaceInfo 对象里面放入 userId 了" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/controller/InterfaceInfoController.java</url>
-          <line>242</line>
-          <option name="timeStamp" value="4" />
+          <url>file://$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/service/impl/InterfaceInfoServiceImpl.java</url>
+          <line>148</line>
+          <option name="timeStamp" value="9" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/controller/InterfaceInfoController.java</url>
-          <line>252</line>
-          <option name="timeStamp" value="5" />
+          <line>256</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/service/impl/InterfaceInfoServiceImpl.java</url>
+          <line>169</line>
+          <option name="timeStamp" value="12" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

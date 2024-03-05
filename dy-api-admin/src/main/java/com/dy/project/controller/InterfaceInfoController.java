@@ -247,6 +247,10 @@ public class InterfaceInfoController {
         interfaceInfoQueryRequest.setSortOrder(CommonConstant.SORT_ORDER_DESC);
         // 限制爬虫
         ThrowUtils.throwIf(size > 30, ErrorCode.PARAMS_ERROR);
+
+//        User loginUser = userService.getLoginUser(request);
+//        interfaceInfoQueryRequest.setUserId(loginUser.getId());
+
         Page<InterfaceInfo> interfaceInfoPage = interfaceInfoService.page(new Page<>(current, size),
                 interfaceInfoService.getQueryWrapper(interfaceInfoQueryRequest));
 
