@@ -1,5 +1,7 @@
 package com.dy.dycommon.service;
 
+import com.dy.dycommon.model.entity.UserInterfaceInfo;
+
 /**
  * @Author: dy
  * @Date: 2024/2/19 21:24
@@ -14,4 +16,10 @@ public interface InnerUserInterfaceInfoService {
       * @return
       */
      boolean invokeCount(Long interfaceInfoId, Long userId);
+
+     UserInterfaceInfo hasLeftNum(Long interfaceId, Long userId);
+
+
+
+
 }

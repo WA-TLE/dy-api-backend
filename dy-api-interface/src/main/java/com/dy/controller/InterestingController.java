@@ -5,6 +5,7 @@ import cn.hutool.core.util.URLUtil;
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping()
+@Slf4j
 public class InterestingController {
 
     @PostMapping("/api/rand.avatar")
@@ -53,6 +55,19 @@ public class InterestingController {
         String body = URLUtil.decode(request.getHeader("body"), CharsetUtil.CHARSET_UTF_8);
         HttpResponse httpResponse = HttpRequest.get(url + "?" + body)
                 .execute();
+        return httpResponse.body();
+    }
+
+    @PostMapping("/qrcode/api.php")
+    public String qrcode(HttpServletRequest request) {
+        String url = "https://api.btstu.cn/qrcode/api.php";
+        String body = URLUtil.decode(request.getHeader("body"), CharsetUtil.CHARSET_UTF_8);
+        HttpResponse httpResponse = HttpRequest.get(url + "?" + body)
+                .execute();
+
+        String body1 = httpResponse.body();
+
+        log.info("httpResponse.body -> {}", body1);
         return httpResponse.body();
     }
 

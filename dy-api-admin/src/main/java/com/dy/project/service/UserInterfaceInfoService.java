@@ -12,7 +12,13 @@ import java.util.List;
 * @createDate 2024-02-02 22:09:07
 */
 public interface UserInterfaceInfoService extends IService<UserInterfaceInfo> {
-    void validInterfaceInfo(UserInterfaceInfo InterfaceInfo, boolean add);
+    /**
+     * 判断接口信息是否有效
+     *
+     * @param userInterfaceInfo
+     * @param add
+     */
+    void validInterfaceInfo(UserInterfaceInfo userInterfaceInfo, boolean add);
 
     boolean invokeCount(Long interfaceInfoId, Long userId);
 

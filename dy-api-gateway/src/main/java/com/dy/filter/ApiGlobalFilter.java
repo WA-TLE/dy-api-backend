@@ -10,15 +10,20 @@ import com.dy.dycommon.service.InnerInterfaceInfoService;
 import com.dy.dycommon.service.InnerUserInterfaceInfoService;
 import com.dy.dycommon.service.InnerUserService;
 import com.dy.utils.SignUtils;
+import jakarta.annotation.Resource;
+import jodd.util.StringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.reactivestreams.Publisher;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.core.io.buffer.DataBufferFactory;
 import org.springframework.core.io.buffer.DataBufferUtils;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -32,10 +37,12 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.net.InetSocketAddress;
-import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 全局拦截器
@@ -50,7 +57,7 @@ import java.util.List;
 public class ApiGlobalFilter implements GlobalFilter, Ordered {
 
     //  定义白名单                                         Arrays.asList("127.0.0.1");
-    public static final List<String> IP_WHITE_LIST = List.of("127.0.0.1");
+    public static final List<String> IP_WHITE_LIST = Collections.singletonList("127.0.0.1");
 
     public static final String HOST = "http://localhost:8081";
 
@@ -63,6 +70,11 @@ public class ApiGlobalFilter implements GlobalFilter, Ordered {
     @DubboReference
     private InnerUserInterfaceInfoService innerUserInterfaceInfoService;
 
+    @Resource
+    private StringRedisTemplate stringRedisTemplate;
+
+    @Resource
+    private RedissonClient redissonClient;
 
     //  1. 用户发送请求到 API 网关    @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
@@ -70,6 +82,8 @@ public class ApiGlobalFilter implements GlobalFilter, Ordered {
         log.info("custom global filter");
         //  2. 请求日志
         //  2.1 获取请求的信息并输出日志
+
+        stringRedisTemplate.opsForValue().set("Hello", "world!");
 
 
 
@@ -240,13 +254,11 @@ public class ApiGlobalFilter implements GlobalFilter, Ordered {
                                         // 7. 用成功，接口调用次数 + 1 invokeCount
 
                                         try {
-                                            boolean flag = innerUserInterfaceInfoService.invokeCount(interfaceId, userId);
+                                           postHandler(exchange.getRequest(), exchange.getResponse(), interfaceId, userId);
                                         } catch (Exception e) {
                                             log.error("远程调用接口调用测试加一失败: e -> ", e);
 
-
                                         }
-
 
                                         byte[] content = new byte[dataBuffer.readableByteCount()];
                                         dataBuffer.read(content);
@@ -277,4 +289,41 @@ public class ApiGlobalFilter implements GlobalFilter, Ordered {
             return chain.filter(exchange);
         }
     }
+
+    private void postHandler(ServerHttpRequest request, ServerHttpResponse response, Long interfaceId, Long userId) {
+        //  获取分布式锁
+        RLock lock = redissonClient.getLock("dy_api:add_interface_num" + userId);
+        if (response.getStatusCode() == HttpStatus.OK) {
+            //  开启异步调用
+            CompletableFuture.runAsync(() -> {
+                try {
+                    addInterfaceNum(request, response, interfaceId, userId);
+                } finally {
+                    lock.unlock();
+                }
+            });
+        }
+
+    }
+
+    private void addInterfaceNum(ServerHttpRequest request, ServerHttpResponse response, Long interfaceId, Long userId) {
+        //  获取随机数
+        String nonce = request.getHeaders().getFirst("nonce");
+        //  随机数校验
+        if (StringUtil.isEmpty(nonce)) {
+            //  抛异常
+            return;
+        }
+
+        //  将随机数放入 redis
+        stringRedisTemplate.opsForValue().set(nonce, "1", 5, TimeUnit.MINUTES);
+
+        //  接口调用次数 + 1
+        innerUserInterfaceInfoService.invokeCount(interfaceId, userId);
+
+
+    }
+
+
+
 }
