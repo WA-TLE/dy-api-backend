@@ -4,17 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f458926-69a8-481b-8e7c-cc9be271d444" name="Changes" comment="优化用户展示接口逻辑&#10;&#10;最开始未过滤用户没有开通的接口">
+    <list default="true" id="2f458926-69a8-481b-8e7c-cc9be271d444" name="Changes" comment="使用异步调用的方式来实现用户调用接口次数加一&#10;&#10;用户调用接口成功后, 通过 CompletableFuture.runAsync 方法来异步的对 user_interface 表进行修改">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/service/UserInterfaceInfoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/service/UserInterfaceInfoService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/service/impl/inner/InnerUserInterfaceInfoServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/service/impl/inner/InnerUserInterfaceInfoServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dy-api-admin/src/main/resources/mapper/UserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/dy-api-admin/src/main/resources/mapper/UserMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dy-api-common/src/main/java/com/dy/dycommon/service/InnerUserInterfaceInfoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/dy-api-common/src/main/java/com/dy/dycommon/service/InnerUserInterfaceInfoService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dy-api-gateway/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/dy-api-gateway/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dy-api-gateway/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/dy-api-gateway/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/controller/AnalysisController.java" beforeDir="false" afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/controller/AnalysisController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dy-api-gateway/src/main/java/com/dy/filter/ApiGlobalFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/dy-api-gateway/src/main/java/com/dy/filter/ApiGlobalFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dy-api-gateway/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/dy-api-gateway/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dy-api-interface/src/main/java/com/dy/controller/InterestingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/dy-api-interface/src/main/java/com/dy/controller/InterestingController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -175,7 +168,7 @@
       <workItem from="1710247640222" duration="3148000" />
       <workItem from="1710315116214" duration="599000" />
       <workItem from="1710323596092" duration="8713000" />
-      <workItem from="1710386522139" duration="7767000" />
+      <workItem from="1710386522139" duration="10031000" />
     </task>
     <task id="LOCAL-00001" summary="dy-api 项目多模块聚合&#10;&#10;将之前所有项目使用 maven 聚合到一个父项目中, 统一管理">
       <created>1708618347570</created>
@@ -289,7 +282,14 @@
       <option name="project" value="LOCAL" />
       <updated>1709630980328</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="使用异步调用的方式来实现用户调用接口次数加一&#10;&#10;用户调用接口成功后, 通过 CompletableFuture.runAsync 方法来异步的对 user_interface 表进行修改">
+      <created>1710414037647</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1710414037647</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -324,7 +324,8 @@
     <MESSAGE value="增加博天api接口调用和 网易云音乐接口调用" />
     <MESSAGE value="优化用户开通接口流程&#10;&#10;最开始忘记在 userInterfaceInfo 对象里面放入 userId 了" />
     <MESSAGE value="优化用户展示接口逻辑&#10;&#10;最开始未过滤用户没有开通的接口" />
-    <option name="LAST_COMMIT_MESSAGE" value="优化用户展示接口逻辑&#10;&#10;最开始未过滤用户没有开通的接口" />
+    <MESSAGE value="使用异步调用的方式来实现用户调用接口次数加一&#10;&#10;用户调用接口成功后, 通过 CompletableFuture.runAsync 方法来异步的对 user_interface 表进行修改" />
+    <option name="LAST_COMMIT_MESSAGE" value="使用异步调用的方式来实现用户调用接口次数加一&#10;&#10;用户调用接口成功后, 通过 CompletableFuture.runAsync 方法来异步的对 user_interface 表进行修改" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -336,8 +337,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/dy-api-gateway/src/main/java/com/dy/filter/ApiGlobalFilter.java</url>
-          <line>256</line>
-          <option name="timeStamp" value="33" />
+          <line>140</line>
+          <option name="timeStamp" value="38" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/controller/InterfaceInfoController.java</url>
+          <line>396</line>
+          <option name="timeStamp" value="41" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

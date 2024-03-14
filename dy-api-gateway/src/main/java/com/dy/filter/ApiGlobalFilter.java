@@ -32,6 +32,7 @@ import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.http.server.reactive.ServerHttpResponseDecorator;
 import org.springframework.stereotype.Component;
 import org.springframework.util.MultiValueMap;
+import org.springframework.util.StringUtils;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -137,6 +138,16 @@ public class ApiGlobalFilter implements GlobalFilter, Ordered {
             return handleNoAuth(response);
         }
 
+        String existRandomNum = stringRedisTemplate.opsForValue().get("randomNum:" + randomNum);
+        if (StrUtil.isNotBlank(existRandomNum)) {
+            log.info("请求重发....");
+            return handleNoAuth(response);
+
+        }
+
+        //  往 redis 中放入随机数
+        stringRedisTemplate.opsForValue().set("randomNum:" + randomNum, "1", 5, TimeUnit.MINUTES);
+
 
         User innerUser = null;
         try {
@@ -154,11 +165,6 @@ public class ApiGlobalFilter implements GlobalFilter, Ordered {
 
 
 
-
-        //  判断随机数是否重复
-        if (Long.parseLong(randomNum) > 10000) {
-            return handleNoAuth(response);
-        }
 
         //  判断时间是否超时...
         long currentTimeMillis = System.currentTimeMillis() / 1000;
@@ -308,15 +314,14 @@ public class ApiGlobalFilter implements GlobalFilter, Ordered {
 
     private void addInterfaceNum(ServerHttpRequest request, ServerHttpResponse response, Long interfaceId, Long userId) {
         //  获取随机数
-        String nonce = request.getHeaders().getFirst("nonce");
+        String randomNum = request.getHeaders().getFirst("randomNum");
         //  随机数校验
-        if (StringUtil.isEmpty(nonce)) {
+        if (StrUtil.isEmpty(randomNum)) {
             //  抛异常
             return;
         }
 
-        //  将随机数放入 redis
-        stringRedisTemplate.opsForValue().set(nonce, "1", 5, TimeUnit.MINUTES);
+
 
         //  接口调用次数 + 1
         innerUserInterfaceInfoService.invokeCount(interfaceId, userId);
