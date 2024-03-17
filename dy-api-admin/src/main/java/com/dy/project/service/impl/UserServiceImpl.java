@@ -121,6 +121,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         }
         // 3. 记录用户的登录态
         request.getSession().setAttribute(USER_LOGIN_STATE, user);
+
+        log.info("存入用户的 session: {}", request.getSession());
+
+        log.info("用户登录成功: {}", user);
+
         return this.getLoginUserVO(user);
     }
 
@@ -136,13 +141,19 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         // 先判断是否已登录
         Object userObj = request.getSession().getAttribute(USER_LOGIN_STATE);
         User currentUser = (User) userObj;
+        log.info("获取当前用户的 session: {}", request.getSession());
         if (currentUser == null || currentUser.getId() == null) {
+            log.info("没有从 session 中查到数据 {}", currentUser);
             throw new BusinessException(ErrorCode.NOT_LOGIN_ERROR);
         }
+        log.info("get/log 获取当前登录态: {}", currentUser);
+        // 真是情况是跨域, 我们的 cookie 没有保存
+        //  2024/3/15 应该就是这里了!!! 我们数据库太慢了!!!
         // 从数据库查询（追求性能的话可以注释，直接走缓存）
         long userId = currentUser.getId();
         currentUser = this.getById(userId);
         if (currentUser == null) {
+            log.info("没有及时的从数据库中查询到数据? ");
             throw new BusinessException(ErrorCode.NOT_LOGIN_ERROR);
         }
         return currentUser;

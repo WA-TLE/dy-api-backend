@@ -60,7 +60,8 @@ public class ApiGlobalFilter implements GlobalFilter, Ordered {
     //  定义白名单                                         Arrays.asList("127.0.0.1");
     public static final List<String> IP_WHITE_LIST = Collections.singletonList("127.0.0.1");
 
-    public static final String HOST = "http://localhost:8081";
+//    public static final String HOST = "http://localhost:8081";
+    public static final String HOST = "http://8.130.9.216:8081";
 
     @DubboReference
     private InnerUserService innerUserService;
@@ -111,14 +112,14 @@ public class ApiGlobalFilter implements GlobalFilter, Ordered {
 
         //  3. （黑白名单）
         //  3.1 关于黑白名单, 我们并没有使用什么高深的做法, 仅仅就是定义后然后拦截
-        if (!IP_WHITE_LIST.contains(sourceAddress)) {
-            //  3.2 获取响应
-            ServerHttpResponse response = exchange.getResponse();
-            //  3.3 设置响应状态码 (禁止访问 403)
-            response.setStatusCode(HttpStatus.FORBIDDEN);
-            //  3.4 返回处理完成后的响应
-            return response.setComplete();
-        }
+//        if (!IP_WHITE_LIST.contains(sourceAddress)) {
+//            //  3.2 获取响应
+//            ServerHttpResponse response = exchange.getResponse();
+//            //  3.3 设置响应状态码 (禁止访问 403)
+//            response.setStatusCode(HttpStatus.FORBIDDEN);
+//            //  3.4 返回处理完成后的响应
+//            return response.setComplete();
+//        }
 
         //  4. 用户鉴权（判断 ak、sk 是否合法）
         ServerHttpResponse response = exchange.getResponse();
@@ -215,7 +216,7 @@ public class ApiGlobalFilter implements GlobalFilter, Ordered {
 
         //  9. 调用失败，返回一个规范的错误码
 
-
+        log.info("网关开始转发请求: ");
         return handleResponse(exchange, chain, interfaceInfo.getId(), innerUser.getId(), response);
     }
 
@@ -260,6 +261,7 @@ public class ApiGlobalFilter implements GlobalFilter, Ordered {
                                         // 7. 用成功，接口调用次数 + 1 invokeCount
 
                                         try {
+                                            log.info("开始调用 postHandler 方法");
                                            postHandler(exchange.getRequest(), exchange.getResponse(), interfaceId, userId);
                                         } catch (Exception e) {
                                             log.error("远程调用接口调用测试加一失败: e -> ", e);
@@ -299,31 +301,42 @@ public class ApiGlobalFilter implements GlobalFilter, Ordered {
     private void postHandler(ServerHttpRequest request, ServerHttpResponse response, Long interfaceId, Long userId) {
         //  获取分布式锁
         RLock lock = redissonClient.getLock("dy_api:add_interface_num" + userId);
-        if (response.getStatusCode() == HttpStatus.OK) {
+        HttpStatusCode statusCode = response.getStatusCode();
+        log.info("相应状态: {}", statusCode);
+        
+        if (statusCode == HttpStatus.OK) {
             //  开启异步调用
+            log.info("相应状态码 ok");
             CompletableFuture.runAsync(() -> {
-                try {
-                    addInterfaceNum(request, response, interfaceId, userId);
-                } finally {
-                    lock.unlock();
+
+                if(lock.tryLock()) {
+                    log.info("获取锁成功: ");
+                    try {
+                        log.info("开启异步调用: ");
+                        addInterfaceNum(request, response, interfaceId, userId);
+                    } finally {
+                        lock.unlock();
+                    }
                 }
             });
+
         }
 
     }
 
     private void addInterfaceNum(ServerHttpRequest request, ServerHttpResponse response, Long interfaceId, Long userId) {
-        //  获取随机数
-        String randomNum = request.getHeaders().getFirst("randomNum");
-        //  随机数校验
-        if (StrUtil.isEmpty(randomNum)) {
-            //  抛异常
-            return;
-        }
+//        //  获取随机数
+//        String randomNum = request.getHeaders().getFirst("randomNum");
+//        //  随机数校验
+//        if (StrUtil.isEmpty(randomNum)) {
+//            //  抛异常
+//            return;
+//        }
 
 
 
         //  接口调用次数 + 1
+        log.info("接口调用次数加一");
         innerUserInterfaceInfoService.invokeCount(interfaceId, userId);
 
 

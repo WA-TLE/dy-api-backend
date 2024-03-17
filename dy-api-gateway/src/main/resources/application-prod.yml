@@ -1,0 +1,36 @@
+spring:
+  config:
+    import: classpath:application-secret.yml
+  data:
+    redis:
+      host: ${prod.data.redis.host}
+      port: ${prod.data.redis.port}
+      password: ${prod.data.redis.password}
+      lettuce:
+        pool:
+          max-active: 8  #最大连接
+          max-idle: 8   #最大空闲连接
+          min-idle: 0   #最小空闲连接
+          max-wait: 1000ms #连接等待时间
+  cloud:
+    gateway:
+      routes:
+        - id: api_route
+          uri: http://8.130.9.216:8081/
+          predicates:
+            - Path=/**
+
+dubbo:
+  application:
+    # 设置应用的名称
+    name: dy-api-gateway
+  # 指定使用 Dubbo 协议，且端口设置为 -1，表示随机分配可用端口
+  protocol:
+    name: dubbo
+    port: 22221
+  registry:
+    # 配置注册中心为 Nacos，使用的地址是 nacos://localhost:8848
+    id: nacos-registry
+    address: ${prod.double.registry.address}
+  config-center:
+    timeout: 40000

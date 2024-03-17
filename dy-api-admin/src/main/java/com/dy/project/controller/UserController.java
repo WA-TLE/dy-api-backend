@@ -75,6 +75,10 @@ public class UserController {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
         LoginUserVO loginUserVO = userService.userLogin(userAccount, userPassword, request);
+
+        log.info("获取用户脱敏视图: {}", loginUserVO);
+
+
         return ResultUtils.success(loginUserVO);
     }
 
@@ -103,7 +107,9 @@ public class UserController {
      */
     @GetMapping("/get/login")
     public BaseResponse<LoginUserVO> getLoginUser(HttpServletRequest request) {
+        log.info("进入 getLoginUser 方法: ");
         User user = userService.getLoginUser(request);
+
         return ResultUtils.success(userService.getLoginUserVO(user));
     }
 

@@ -1,6 +1,8 @@
 server:
   port: 8090
 spring:
+  config:
+    import: classpath:application-secret.yml
   application:
     name: gateway
   cloud:
@@ -12,9 +14,9 @@ spring:
             - Path=/**
   data:
     redis:
-      host: 8.130.9.216
-      port: 6379
-      password: dingyu@.
+      host: ${default.data.redis.host}
+      port: ${default.data.redis.port}
+      password: ${default.data.redis.password}
       lettuce:
         pool:
           max-active: 8  #最大连接
@@ -41,4 +43,4 @@ dubbo:
   registry:
     # 配置注册中心为 Nacos，使用的地址是 nacos://localhost:8848
     id: nacos-registry2
-    address: nacos://101.133.130.46:8848
+    address: ${default.double.registry.address}

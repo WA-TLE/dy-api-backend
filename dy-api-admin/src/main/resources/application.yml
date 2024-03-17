@@ -6,12 +6,15 @@ spring:
   devtools:
     restart:
       enabled: false
-
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/dy_api
-    password: ${spring.datasource.password}
-    username: ${spring.datasource.password}
+    driver-class-name: ${prod.datasource.driver-class-name}
+    url: ${prod.datasource.url}
+    password: ${prod.datasource.password}
+    username: ${prod.datasource.username}
+#    driver-class-name: ${default.datasource.driver-class-name}
+#    url: ${default.datasource.url}
+#    password: ${default.datasource.password}
+#    username: ${default.datasource.username}
   config:
     import: classpath:application-secrets.yml
 
@@ -25,7 +28,7 @@ spring:
   # redis 配置
   redis:
     port: 6379
-    host: localhost
+    host: 8.130.9.216
     database: 0
 server:
   port: 8101
@@ -61,8 +64,8 @@ dubbo:
   # 指定使用 Dubbo 协议，且端口设置为 -1，表示随机分配可用端口
   protocol:
     name: dubbo
-    port: 22220
+    port: 22225
   registry:
     # 配置注册中心为 Nacos，使用的地址是 nacos://localhost:8848
     id: nacos-registry
-    address: nacos://101.133.130.46:8848
+    address: ${default.double.registry.address}

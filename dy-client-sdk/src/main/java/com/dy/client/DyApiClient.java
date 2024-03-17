@@ -6,6 +6,7 @@ import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import cn.hutool.json.JSONUtil;
 import com.dy.utils.SignUtils;
+import lombok.extern.slf4j.Slf4j;
 
 import java.net.URLEncoder;
 import java.util.HashMap;
@@ -16,13 +17,15 @@ import java.util.Map;
  * @Date: 2023/12/21 17:35
  * @Description:
  */
+@Slf4j
 public class DyApiClient {
     
     
 
     private String accessKey;
     private String secretKey;
-    public static  String GATEWAY_HOST = "http://localhost:8090";
+//    public static  String GATEWAY_HOST = "http://localhost:8090";
+    public static  String GATEWAY_HOST = "http://8.130.9.216:8090";
     public DyApiClient() {
     }
 
@@ -38,6 +41,7 @@ public class DyApiClient {
 
     public String invokeInterface(String params, String url, String method) {
 
+        log.info("client: 网关地址 -> {}", GATEWAY_HOST);
         // TODO: 2024/3/1 防止编码异常
         HttpResponse httpResponse = HttpRequest.post(GATEWAY_HOST + url)
                 .header("Accept-Charset", CharsetUtil.UTF_8)

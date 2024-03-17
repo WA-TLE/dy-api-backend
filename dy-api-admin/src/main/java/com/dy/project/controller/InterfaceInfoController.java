@@ -17,6 +17,7 @@ import com.dy.dycommon.model.vo.InterfaceInfoVO;
 import com.dy.project.annotation.AuthCheck;
 
 
+import com.dy.project.config.GatewayConfig;
 import com.dy.project.exception.BusinessException;
 
 import com.dy.project.exception.ThrowUtils;
@@ -46,6 +47,8 @@ public class InterfaceInfoController {
     @Resource
     private UserService userService;
 
+    @Resource
+    private GatewayConfig gatewayConfig;
 
 
 
@@ -73,7 +76,6 @@ public class InterfaceInfoController {
 
 
         // 校验
-        // TODO: 2024/2/2 这里先改为 false, 等后期再优化用户 id
         interfaceInfoService.validInterfaceInfo(interfaceInfo, true);
 
         User loginUser = userService.getLoginUser(request);
@@ -393,6 +395,9 @@ public class InterfaceInfoController {
         //  获取 SDK客户端并调用
         // TODO: 2024/3/1 防止异常
         DyApiClient dyApiClient = interfaceInfoService.getDyApiClient(request);
+        dyApiClient.setHOST(gatewayConfig.getHost());
+
+        log.info("网关的地址: {}", gatewayConfig.getHost());
 
         String result = dyApiClient.invokeInterface(requestParams, url, method);
 
