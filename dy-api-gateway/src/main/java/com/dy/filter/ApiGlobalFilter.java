@@ -123,6 +123,10 @@ public class ApiGlobalFilter implements GlobalFilter, Ordered {
 
         //  4. 用户鉴权（判断 ak、sk 是否合法）
         ServerHttpResponse response = exchange.getResponse();
+        //  打印一下 response 的状态码
+        HttpStatusCode statusCode1 = response.getStatusCode();
+        log.info("相应状态: {}", statusCode1);
+
 
         //  1. 从请求头中获取 accessKey 和 secretKey 来判断是否为合法调用
         HttpHeaders headers = request.getHeaders();
@@ -199,6 +203,9 @@ public class ApiGlobalFilter implements GlobalFilter, Ordered {
             return handleNoAuth(response);
         }
 
+        //  打印一下 response 的状态码
+        HttpStatusCode statusCode = response.getStatusCode();
+        log.info("相应状态: {}", statusCode);
 
         //  6. **请求转发，调用模拟接口**
 
@@ -262,7 +269,9 @@ public class ApiGlobalFilter implements GlobalFilter, Ordered {
 
                                         try {
                                             log.info("开始调用 postHandler 方法");
-                                           postHandler(exchange.getRequest(), exchange.getResponse(), interfaceId, userId);
+                                            HttpStatusCode statusCode1 = exchange.getResponse().getStatusCode();
+                                            log.info("相应状态: {}", statusCode1);
+                                            postHandler(exchange.getRequest(), exchange.getResponse(), interfaceId, userId);
                                         } catch (Exception e) {
                                             log.error("远程调用接口调用测试加一失败: e -> ", e);
 

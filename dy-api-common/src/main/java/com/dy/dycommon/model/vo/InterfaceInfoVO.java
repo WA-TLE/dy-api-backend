@@ -16,7 +16,6 @@ import java.util.List;
  * 接口调用分析视图
  */
 @Data
-
 public class InterfaceInfoVO  implements Serializable {
 
     private final static Gson GSON = new Gson();

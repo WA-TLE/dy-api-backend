@@ -21,15 +21,13 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class InterestingController {
 
-    @PostMapping("/api/rand.avatar")
-    public String randAvatar(HttpServletRequest request) {
-        String url = "https://api.uomg.com/api/rand.avatar";
-        String body = URLUtil.decode(request.getHeader("body"), CharsetUtil.CHARSET_UTF_8);
-        HttpResponse httpResponse = HttpRequest.get(url + "?" + body)
-                .execute();
-        return httpResponse.body();
-    }
 
+    /**
+     * 获取壁纸
+     *
+     * @param request
+     * @return
+     */
     @PostMapping("/sjbz/api.php")
     public String randImages(HttpServletRequest request) {
         String url = "http://api.btstu.cn/sjbz/api.php";
@@ -39,6 +37,12 @@ public class InterestingController {
         return httpResponse.body();
     }
 
+    /**
+     * 毒鸡汤
+     *
+     * @param request
+     * @return
+     */
     @PostMapping("/yan/api.php")
     public String poisonChicken(HttpServletRequest request) {
         String url = "http://api.btstu.cn/yan/api.php";
@@ -49,6 +53,12 @@ public class InterestingController {
     }
 
 
+    /**
+     * 短网址生成
+     *
+     * @param request
+     * @return
+     */
     @PostMapping("/api/long2dwz")
     public String long2dwz(HttpServletRequest request) {
         String url = "https://api.uomg.com/api/long2dwz";
@@ -58,18 +68,6 @@ public class InterestingController {
         return httpResponse.body();
     }
 
-    @PostMapping("/qrcode/api.php")
-    public String qrcode(HttpServletRequest request) {
-        String url = "https://api.btstu.cn/qrcode/api.php";
-        String body = URLUtil.decode(request.getHeader("body"), CharsetUtil.CHARSET_UTF_8);
-        HttpResponse httpResponse = HttpRequest.get(url + "?" + body)
-                .execute();
-
-        String body1 = httpResponse.body();
-
-        log.info("httpResponse.body -> {}", body1);
-        return httpResponse.body();
-    }
 
 
 }

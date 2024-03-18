@@ -10,6 +10,7 @@ import com.dy.dycommon.model.vo.InterfaceInfoVO;
 import org.apache.coyote.Request;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 
 /**
@@ -28,9 +29,10 @@ public interface InterfaceInfoService extends IService<InterfaceInfo> {
      * 获取查询条件
      *
      * @param interfaceInfoQueryRequest
+     * @param ids
      * @return
      */
-    QueryWrapper<InterfaceInfo> getQueryWrapper(InterfaceInfoQueryRequest interfaceInfoQueryRequest);
+    QueryWrapper<InterfaceInfo> getQueryWrapper(InterfaceInfoQueryRequest interfaceInfoQueryRequest, List<Long> ids);
 
     /**
      * 分页获取接口信息封装

@@ -1,6 +1,8 @@
 package com.dy.project.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.dy.dycommon.model.entity.InterfaceInfo;
 import com.dy.dycommon.model.entity.UserInterfaceInfo;
 
 import java.util.List;
@@ -23,4 +25,7 @@ public interface UserInterfaceInfoService extends IService<UserInterfaceInfo> {
     boolean invokeCount(Long interfaceInfoId, Long userId);
 
     List<UserInterfaceInfo> listTopInvokeInterfaceInfo(Integer limit);
+
+
+    QueryWrapper<UserInterfaceInfo> getQueryWrapperInterfaceInfoQueryRequest();
 }

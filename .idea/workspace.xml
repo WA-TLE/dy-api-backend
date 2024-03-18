@@ -4,19 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f458926-69a8-481b-8e7c-cc9be271d444" name="Changes" comment="引入redis, 增加判断请求重发逻辑">
-      <change afterPath="$PROJECT_DIR$/dy-api-gateway/src/main/resources/application-prod.yml" afterDir="false" />
+    <list default="true" id="2f458926-69a8-481b-8e7c-cc9be271d444" name="Changes" comment="增加项目部署相关配置&#10;&#10;通过配置文件来指定网关地址, 添加 application-prod.yml 配置文件">
+      <change afterPath="$PROJECT_DIR$/dy-api-interface/src/main/java/com/dy/controller/AAController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dy-api-interface/src/main/java/com/dy/utils/JsonUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/config/CorsConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/config/CorsConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/controller/InterfaceInfoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/controller/InterfaceInfoController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/service/impl/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/service/InterfaceInfoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/service/InterfaceInfoService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/service/UserInterfaceInfoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/service/UserInterfaceInfoService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/service/impl/InterfaceInfoServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/service/impl/InterfaceInfoServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/service/impl/UserInterfaceInfoServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/service/impl/UserInterfaceInfoServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dy-api-admin/src/main/resources/application-prod.yml" beforeDir="false" afterPath="$PROJECT_DIR$/dy-api-admin/src/main/resources/application-prod.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dy-api-admin/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/dy-api-admin/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dy-api-common/src/main/java/com/dy/dycommon/model/vo/InterfaceInfoVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/dy-api-common/src/main/java/com/dy/dycommon/model/vo/InterfaceInfoVO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dy-api-gateway/src/main/java/com/dy/filter/ApiGlobalFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/dy-api-gateway/src/main/java/com/dy/filter/ApiGlobalFilter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dy-api-gateway/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/dy-api-gateway/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dy-api-interface/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/dy-api-interface/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dy-api-interface/src/main/java/com/dy/controller/InterestingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/dy-api-interface/src/main/java/com/dy/controller/InterestingController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dy-api-interface/src/main/java/com/dy/controller/NameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/dy-api-interface/src/main/java/com/dy/controller/NameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dy-api-interface/src/main/java/com/dy/controller/NetEaseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/dy-api-interface/src/main/java/com/dy/controller/NetEaseController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dy-client-sdk/src/main/java/com/dy/client/DyApiClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/dy-client-sdk/src/main/java/com/dy/client/DyApiClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,11 +110,14 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.MyApplication">
+  <component name="RunManager" selected="Spring Boot.DyapiGatewayApplication">
     <configuration name="generated-requests | #42" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="42" requestIdentifier="#42" runType="Run single request">
       <method v="2" />
     </configuration>
     <configuration name="generated-requests | #43" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="43" requestIdentifier="#43" runType="Run single request">
+      <method v="2" />
+    </configuration>
+    <configuration name="generated-requests | #47" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="47" requestIdentifier="#47" runType="Run single request">
       <method v="2" />
     </configuration>
     <configuration name="DyapiGatewayApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
@@ -147,8 +157,9 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="HTTP Request.generated-requests | #42" />
+        <item itemvalue="HTTP Request.generated-requests | #47" />
         <item itemvalue="HTTP Request.generated-requests | #43" />
+        <item itemvalue="HTTP Request.generated-requests | #42" />
       </list>
     </recent_temporary>
   </component>
@@ -180,7 +191,8 @@
       <workItem from="1710386522139" duration="13101000" />
       <workItem from="1710470644322" duration="12302000" />
       <workItem from="1710563664093" duration="19835000" />
-      <workItem from="1710652232546" duration="8304000" />
+      <workItem from="1710652232546" duration="21400000" />
+      <workItem from="1710725818935" duration="20782000" />
     </task>
     <task id="LOCAL-00001" summary="dy-api 项目多模块聚合&#10;&#10;将之前所有项目使用 maven 聚合到一个父项目中, 统一管理">
       <created>1708618347570</created>
@@ -308,7 +320,14 @@
       <option name="project" value="LOCAL" />
       <updated>1710417834952</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="增加项目部署相关配置&#10;&#10;通过配置文件来指定网关地址, 添加 application-prod.yml 配置文件">
+      <created>1710666776032</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1710666776032</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -346,55 +365,22 @@
     <MESSAGE value="使用异步调用的方式来实现用户调用接口次数加一&#10;&#10;用户调用接口成功后, 通过 CompletableFuture.runAsync 方法来异步的对 user_interface 表进行修改" />
     <MESSAGE value="增加判断请求重发逻辑" />
     <MESSAGE value="引入redis, 增加判断请求重发逻辑" />
-    <option name="LAST_COMMIT_MESSAGE" value="引入redis, 增加判断请求重发逻辑" />
+    <MESSAGE value="增加项目部署相关配置&#10;&#10;还有一些 bug 没有出来呢" />
+    <MESSAGE value="增加项目部署相关配置&#10;&#10;通过配置文件来指定网关地址, 添加 application-prod.yml 配置文件" />
+    <option name="LAST_COMMIT_MESSAGE" value="增加项目部署相关配置&#10;&#10;通过配置文件来指定网关地址, 添加 application-prod.yml 配置文件" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/dy-api-gateway/src/main/java/com/dy/filter/ApiGlobalFilter.java</url>
-          <line>108</line>
-          <option name="timeStamp" value="37" />
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/controller/InterfaceInfoController.java</url>
+          <line>257</line>
+          <option name="timeStamp" value="34" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/service/impl/InterfaceInfoServiceImpl.java</url>
-          <line>167</line>
-          <option name="timeStamp" value="44" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/service/impl/InterfaceInfoServiceImpl.java</url>
-          <line>199</line>
-          <option name="timeStamp" value="45" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/dy-api-interface/src/main/java/com/dy/controller/NameController.java</url>
-          <line>21</line>
-          <option name="timeStamp" value="47" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/dy-api-gateway/src/main/java/com/dy/filter/ApiGlobalFilter.java</url>
-          <line>218</line>
-          <option name="timeStamp" value="48" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/dy-api-gateway/src/main/java/com/dy/filter/ApiGlobalFilter.java</url>
-          <line>242</line>
-          <option name="timeStamp" value="49" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/dy-api-gateway/src/main/java/com/dy/filter/ApiGlobalFilter.java</url>
-          <line>263</line>
-          <option name="timeStamp" value="50" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/dy-api-gateway/src/main/java/com/dy/filter/ApiGlobalFilter.java</url>
-          <line>308</line>
-          <option name="timeStamp" value="51" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/dy-api-gateway/src/main/java/com/dy/filter/ApiGlobalFilter.java</url>
-          <line>302</line>
-          <option name="timeStamp" value="52" />
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/dy-api-admin/src/main/java/com/dy/project/controller/InterfaceInfoController.java</url>
+          <line>274</line>
+          <option name="timeStamp" value="35" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -125,11 +125,10 @@ public class InterfaceInfoServiceImpl extends ServiceImpl<InterfaceInfoMapper, I
         return interfaceInfoVO;
 
 
-
     }
 
     @Override
-    public QueryWrapper<InterfaceInfo> getQueryWrapper(InterfaceInfoQueryRequest interfaceInfoQueryRequest) {
+    public QueryWrapper<InterfaceInfo> getQueryWrapper(InterfaceInfoQueryRequest interfaceInfoQueryRequest, List<Long> ids) {
         QueryWrapper<InterfaceInfo> queryWrapper = new QueryWrapper<>();
         if (interfaceInfoQueryRequest == null) {
             return queryWrapper;
@@ -152,7 +151,8 @@ public class InterfaceInfoServiceImpl extends ServiceImpl<InterfaceInfoMapper, I
         queryWrapper.like(StringUtils.isNotBlank(name), "name", name);
         queryWrapper.like(StringUtils.isNotBlank(description), "description", description);
         queryWrapper.like(StringUtils.isNotBlank(method), "method", method);
-        queryWrapper.eq(ObjectUtils.isNotEmpty(id), "id", id);
+//        queryWrapper.eq(ObjectUtils.isNotEmpty(id), "id", id);
+        queryWrapper.in(ObjectUtils.isNotEmpty(ids), "id", ids);
         queryWrapper.eq(ObjectUtils.isNotEmpty(status), "status", status);
         queryWrapper.gt(ObjectUtils.isNotEmpty(createTime), "createTime", createTime);
         queryWrapper.eq(ObjectUtils.isNotEmpty(userId), "userId", userId);
@@ -163,7 +163,74 @@ public class InterfaceInfoServiceImpl extends ServiceImpl<InterfaceInfoMapper, I
     }
 
     @Override
-    public Page<InterfaceInfoVO>  getInterfaceInfoVOByUserIdPage(Page<InterfaceInfo> interfaceInfoPage, HttpServletRequest request) {
+    public Page<InterfaceInfoVO> getInterfaceInfoVOByUserIdPage(Page<InterfaceInfo> interfaceInfoPage, HttpServletRequest request) {
+        List<InterfaceInfo> interfaceInfoList = interfaceInfoPage.getRecords();
+        Page<InterfaceInfoVO> interfaceInfoVOPage = new Page<>(interfaceInfoPage.getCurrent(), interfaceInfoPage.getSize(), interfaceInfoPage.getTotal());
+        if (CollectionUtils.isEmpty(interfaceInfoList)) {
+            return interfaceInfoVOPage;
+        }
+        // 获取当前用户ID
+        User loginUser = userService.getLoginUser(request);
+        Long userId = loginUser.getId();
+
+        // 将 InterfaceInfo 列表转换为 InterfaceInfoVO 列表
+        List<InterfaceInfoVO> interfaceInfoVOList = interfaceInfoList.stream()
+                .map(interfaceInfo -> {
+                    InterfaceInfoVO interfaceInfoVO = InterfaceInfoVO.objToVo(interfaceInfo);
+                    // 查询 user_interface_info 表，获取额外信息并填充
+                    UserInterfaceInfo userInterfaceInfo = userInterfaceInfoService.lambdaQuery()
+                            .eq(UserInterfaceInfo::getUserId, userId)
+                            .eq(UserInterfaceInfo::getInterfaceInfoId, interfaceInfo.getId())
+                            .one();
+                    // 填充接口调用次数信息
+                    if (userInterfaceInfo != null) {
+                        interfaceInfoVO.setTotalNum(userInterfaceInfo.getTotalNum());
+                        interfaceInfoVO.setLeftNum(userInterfaceInfo.getLeftNum());
+                    }
+                    // 转换请求和响应参数说明的 JSON 字符串为对象列表
+                    List<RequestParamsRemarkVO> requestParamsRemarkVOList = JSONUtil.toList(JSONUtil.parseArray(interfaceInfo.getRequestParamsRemark()), RequestParamsRemarkVO.class);
+                    List<ResponseParamsRemarkVO> responseParamsRemarkVOList = JSONUtil.toList(JSONUtil.parseArray(interfaceInfo.getResponseParamsRemark()), ResponseParamsRemarkVO.class);
+                    interfaceInfoVO.setRequestParamsRemark(requestParamsRemarkVOList);
+                    interfaceInfoVO.setResponseParamsRemark(responseParamsRemarkVOList);
+                    return interfaceInfoVO;
+                })
+                .collect(Collectors.toList());
+
+        interfaceInfoVOPage.setRecords(interfaceInfoVOList);
+        return interfaceInfoVOPage;
+    }
+
+    /*@Override
+    public Page<InterfaceInfoVO> getInterfaceInfoVOByUserIdPage(Page<InterfaceInfo> interfaceInfoPage, HttpServletRequest request) {
+        if (interfaceInfoPage == null) {
+            return null;
+        }
+        Page<InterfaceInfoVO> interfaceInfoVOPage = new Page<>(interfaceInfoPage.getCurrent(), interfaceInfoPage.getSize(), interfaceInfoPage.getTotal());
+
+        List<InterfaceInfo> interfaceInfoList = interfaceInfoPage.getRecords();
+        if (CollectionUtils.isEmpty(interfaceInfoList)) {
+            return interfaceInfoVOPage;
+        }
+        // 直接转换为InterfaceInfoVO，不需要过滤
+        List<InterfaceInfoVO> interfaceInfoVOList = interfaceInfoList.stream()
+                .map(interfaceInfo -> {
+                    InterfaceInfoVO interfaceInfoVO = InterfaceInfoVO.objToVo(interfaceInfo);
+                    // 直接封装请求参数说明和响应参数说明，省略了用户接口信息的检查和过滤
+                    List<RequestParamsRemarkVO> requestParamsRemarkVOList = JSONUtil.toList(JSONUtil.parseArray(interfaceInfo.getRequestParamsRemark()), RequestParamsRemarkVO.class);
+                    List<ResponseParamsRemarkVO> responseParamsRemarkVOList = JSONUtil.toList(JSONUtil.parseArray(interfaceInfo.getResponseParamsRemark()), ResponseParamsRemarkVO.class);
+                    interfaceInfoVO.setRequestParamsRemark(requestParamsRemarkVOList);
+                    interfaceInfoVO.setResponseParamsRemark(responseParamsRemarkVOList);
+                    return interfaceInfoVO;
+                })
+                .collect(Collectors.toList());
+
+        interfaceInfoVOPage.setRecords(interfaceInfoVOList);
+        return interfaceInfoVOPage;
+    }
+*/
+
+    /*@Override
+    public Page<InterfaceInfoVO> getInterfaceInfoVOByUserIdPage(Page<InterfaceInfo> interfaceInfoPage, HttpServletRequest request) {
         List<InterfaceInfo> interfaceInfoList = interfaceInfoPage.getRecords();
         Page<InterfaceInfoVO> interfaceInfoVOPage = new Page<>(interfaceInfoPage.getCurrent(), interfaceInfoPage.getSize(), interfaceInfoPage.getTotal());
         if (CollectionUtils.isEmpty(interfaceInfoList)) {
@@ -199,7 +266,7 @@ public class InterfaceInfoServiceImpl extends ServiceImpl<InterfaceInfoMapper, I
 
         interfaceInfoVOPage.setRecords(interfaceInfoVOList);
         return interfaceInfoVOPage;
-    }
+    }*/
 
     @Override
     public Page<InterfaceInfoVO> getInterfaceInfoVOPage(Page<InterfaceInfo> interfaceInfoPage, HttpServletRequest request) {

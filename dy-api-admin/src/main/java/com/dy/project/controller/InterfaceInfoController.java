@@ -1,6 +1,5 @@
 package com.dy.project.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dy.client.DyApiClient;
 import com.dy.dycommon.common.*;
@@ -12,6 +11,7 @@ import com.dy.dycommon.model.dto.interfaceinfo.InterfaceInfoQueryRequest;
 import com.dy.dycommon.model.dto.interfaceinfo.InterfaceInfoUpdateRequest;
 import com.dy.dycommon.model.entity.InterfaceInfo;
 import com.dy.dycommon.model.entity.User;
+import com.dy.dycommon.model.entity.UserInterfaceInfo;
 import com.dy.dycommon.model.enums.InterfaceInfoStatusEnum;
 import com.dy.dycommon.model.vo.InterfaceInfoVO;
 import com.dy.project.annotation.AuthCheck;
@@ -22,14 +22,17 @@ import com.dy.project.exception.BusinessException;
 
 import com.dy.project.exception.ThrowUtils;
 import com.dy.project.service.InterfaceInfoService;
+import com.dy.project.service.UserInterfaceInfoService;
 import com.dy.project.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 接口的接口哈哈哈
@@ -46,6 +49,9 @@ public class InterfaceInfoController {
 
     @Resource
     private UserService userService;
+
+    @Resource
+    private UserInterfaceInfoService userInterfaceInfoService;
 
     @Resource
     private GatewayConfig gatewayConfig;
@@ -173,6 +179,7 @@ public class InterfaceInfoController {
         return ResultUtils.success(interfaceInfoVO);
     }
 
+    // TODO: 2024/3/18 已经下线的接口就不要查询了
     @PostMapping("/list/page/vo")
     public BaseResponse<Page<InterfaceInfoVO>> listInterfaceInfoVOByPage(@RequestBody InterfaceInfoQueryRequest interfaceInfoQueryRequest,
                                                                          HttpServletRequest request) {
@@ -184,7 +191,7 @@ public class InterfaceInfoController {
         // 限制爬虫
         ThrowUtils.throwIf(size > 20, ErrorCode.PARAMS_ERROR);
         Page<InterfaceInfo> interfaceInfoPage = interfaceInfoService.page(new Page<>(current, size),
-                interfaceInfoService.getQueryWrapper(interfaceInfoQueryRequest));
+                interfaceInfoService.getQueryWrapper(interfaceInfoQueryRequest, null));
         return ResultUtils.success(interfaceInfoService.getInterfaceInfoVOPage(interfaceInfoPage, request));
     }
 
@@ -240,8 +247,8 @@ public class InterfaceInfoController {
      * @return 分页列表
      */
     @PostMapping("/my/list/page/vo")
-    public BaseResponse<Page<InterfaceInfoVO>> listInterfaceInfoVOByUserIdPage(@RequestBody InterfaceInfoQueryRequest interfaceInfoQueryRequest,
-                                                                               HttpServletRequest request) {
+    public BaseResponse<Page<InterfaceInfoVO>> listInterfaceInfoVOByUserIdPage(@RequestBody InterfaceInfoQueryRequest interfaceInfoQueryRequest, HttpServletRequest request) {
+        // TODO: 2024/3/18 这里有问题, 我们要查询六个接口, 但是, 最终得到的往往不足 六个!!! 没有给用户绑定
         long current = interfaceInfoQueryRequest.getCurrent();
         long size = interfaceInfoQueryRequest.getPageSize();
         interfaceInfoQueryRequest.setSortField("createTime");
@@ -250,11 +257,35 @@ public class InterfaceInfoController {
         // 限制爬虫
         ThrowUtils.throwIf(size > 30, ErrorCode.PARAMS_ERROR);
 
-//        User loginUser = userService.getLoginUser(request);
-//        interfaceInfoQueryRequest.setUserId(loginUser.getId());
 
-        Page<InterfaceInfo> interfaceInfoPage = interfaceInfoService.page(new Page<>(current, size),
-                interfaceInfoService.getQueryWrapper(interfaceInfoQueryRequest));
+
+        // 根据用户 id 查询出用户所关联接口的 id
+
+        //  获取用户 id
+        User loginUser = userService.getLoginUser(request);
+        if (loginUser == null) {
+            throw new  BusinessException(ErrorCode.NOT_LOGIN_ERROR);
+        }
+        Long userId = loginUser.getId();
+
+        List<UserInterfaceInfo> list = userInterfaceInfoService.lambdaQuery()
+                .eq(UserInterfaceInfo::getUserId, userId)
+                .list();
+
+        List<Long> ids = list.stream()
+                .distinct()
+                .map(UserInterfaceInfo::getInterfaceInfoId)
+                .collect(Collectors.toList());
+
+
+
+        Page<InterfaceInfo> interfaceInfoPage = null;
+        if (ObjectUtils.isNotEmpty(ids)) {
+            interfaceInfoPage = interfaceInfoService.page(new Page<>(current, size),
+                    interfaceInfoService.getQueryWrapper(interfaceInfoQueryRequest, ids));
+        }
+
+
 
         return ResultUtils.success(interfaceInfoService.getInterfaceInfoVOByUserIdPage(interfaceInfoPage, request));
     }
@@ -398,6 +429,7 @@ public class InterfaceInfoController {
         dyApiClient.setHOST(gatewayConfig.getHost());
 
         log.info("网关的地址: {}", gatewayConfig.getHost());
+
 
         String result = dyApiClient.invokeInterface(requestParams, url, method);
 
